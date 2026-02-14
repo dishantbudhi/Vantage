@@ -1,0 +1,387 @@
+# CryoNexus — Parallel Worktree Task Breakdown
+
+## Overview
+
+The CryoNexus project is broken into **4 phases** with **8 parallel worktrees**. Each worktree is a self-contained unit of work that can be built by an independent agent. Worktrees within the same phase can run **in parallel**. PRs merge into `dev`.
+
+> [!IMPORTANT]
+> **Phase 1 MUST complete before Phases 2 & 3 begin.** Phase 1 produces the shared types, schemas, and contracts that all other worktrees depend on.
+> Phase 4 depends on ALL prior phases merging to `dev`.
+
+## Dependency Graph
+
+```mermaid
+graph TD
+    P1A["Phase 1A<br/>Shared Foundation"] --> P2A["Phase 2A<br/>Backend Pipeline"]
+    P1A --> P2B["Phase 2B<br/>Map Visualization"]
+    P1A --> P2C["Phase 2C<br/>Sidebar UI"]
+    P1B["Phase 1B<br/>Data Layer"] --> P2A
+    P1B --> P2B
+    P2A --> P3A["Phase 3A<br/>SSE Client + State"]
+    P2B --> P3A
+    P2C --> P3A
+    P2A --> P3B["Phase 3B<br/>Region Detail + Polish"]
+    P2B --> P3B
+    P2C --> P3B
+    P3A --> P4["Phase 4<br/>Integration + Golden Path"]
+    P3B --> P4
+
+    style P1A fill:#4CAF50,color:#fff
+    style P1B fill:#4CAF50,color:#fff
+    style P2A fill:#2196F3,color:#fff
+    style P2B fill:#2196F3,color:#fff
+    style P2C fill:#2196F3,color:#fff
+    style P3A fill:#FF9800,color:#fff
+    style P3B fill:#FF9800,color:#fff
+    style P4 fill:#f44336,color:#fff
+```
+
+---
+
+## Phase 1 — Foundation (Parallel: 2 worktrees)
+
+> **Goal:** Establish the shared contracts (types, schemas, providers) and data layer that every other worktree imports. Nothing else can begin until these merge.
+
+---
+
+### Worktree 1A · `feature/shared-foundation`
+
+**Branch:** `feature/shared-foundation` → PR into `dev`
+**Estimated effort:** ~2 hours
+
+#### Files to create/modify
+
+| File | Action | What to build |
+|---|---|---|
+| [lib/types.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/types.ts) | Implement | `AgentName` union type, SSE event type discriminated unions (`OrchestratorEvent`, `AgentChunkEvent`, `AgentCompleteEvent`, `SynthesisChunkEvent`, `CompleteEvent`, `ErrorEvent`), `SSEEvent` union, `AnalysisCallbacks` interface, `AnalysisState` interface for React state, `LayerToggleState` |
+| [lib/agents/schemas.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/agents/schemas.ts) | Implement | All 7 Zod schemas exactly as specified in MVP-SPEC §2: `OrchestratorSchema`, `GeopoliticsSchema`, `EconomySchema`, `FoodSupplySchema`, `InfrastructureSchema`, `CivilianImpactSchema`, `SynthesisSchema`. Export inferred types. |
+| [lib/agents/providers.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/agents/providers.ts) | Implement | `openai` provider via `createOpenAI`, `minimax` provider via `createOpenAICompatible` with `baseURL: "https://api.minimax.io/v1"`. Read API keys from `process.env`. |
+| [lib/risk-score.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/risk-score.ts) | Implement | `computeCompoundRiskScore()` function exactly as specified in MVP-SPEC §11. Weight table, cascade multiplier, clamping logic. |
+| [app/globals.css](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/app/globals.css) | Implement | Tailwind v4 import, dark theme CSS custom properties (background, foreground, card, primary, accent colors), Inter font import. |
+| [app/layout.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/app/layout.tsx) | Update | Root layout with dark theme class, Inter font, proper `<html>` and `<body>` setup, metadata (title: "CryoNexus"). |
+
+#### Acceptance criteria
+- `npm run build` passes with no type errors
+- All Zod schemas parse sample data correctly (write quick inline test)
+- `computeCompoundRiskScore()` returns `100` for the Suez example from §11
+- Provider instances can be imported without error
+
+#### Connection notes for downstream agents
+- **Every other worktree imports from [lib/types.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/types.ts) and [lib/agents/schemas.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/agents/schemas.ts)**
+- Downstream worktrees must use the *exact* exported type names: `AgentName`, `OrchestratorOutput`, `GeopoliticsOutput`, etc.
+- The `SSEEvent` discriminated union defines the contract between backend (Worktree 2A) and frontend (Worktree 3A)
+
+---
+
+### Worktree 1B · `feature/data-layer`
+
+**Branch:** `feature/data-layer` → PR into `dev`
+**Estimated effort:** ~2 hours
+
+#### Files to create/modify
+
+| File | Action | What to build |
+|---|---|---|
+| [scripts/preload-data.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/scripts/preload-data.ts) | Implement | Data preloading script per MVP-SPEC §5: fetch Natural Earth GeoJSON, World Bank indicators, UNHCR displacement data. Handle the Excel files for INFORM Risk Index + WRI Power Plants (parse the [.xlsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/INFORM_Risk_Mid_2025_v071.xlsx) files in repo root). |
+| [lib/data/countries.json](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/data/countries.json) | Generate | Natural Earth 110m GeoJSON (~2MB). Output of preload script. |
+| [lib/data/economic-indicators.json](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/data/economic-indicators.json) | Generate | World Bank data keyed by ISO3 code. |
+| [lib/data/risk-index.json](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/data/risk-index.json) | Generate | INFORM Risk Index parsed from [INFORM_Risk_Mid_2025_v071.xlsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/INFORM_Risk_Mid_2025_v071.xlsx). |
+| [lib/data/displacement.json](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/data/displacement.json) | Generate | UNHCR refugee/IDP data. |
+| [lib/data/power-plants.json](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/data/power-plants.json) | Generate | WRI power plant data (lat, lon, capacity_mw, primary_fuel, country). |
+| [lib/data/loader.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/data/loader.ts) | Implement | Functions to load and parse each JSON dataset: `loadCountries()`, `loadEconomicIndicators()`, `loadRiskIndex()`, `loadDisplacement()`, `loadPowerPlants()`. Typed return values. Functions to look up data by ISO3 code: `getCountryData(iso3)`, `getRegionContext(iso3Codes)`. |
+| [lib/gdelt.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/gdelt.ts) | Implement | GDELT DOC 2.0 client exactly as specified in MVP-SPEC: `searchGDELT(query, maxRecords)` with 5s timeout and graceful fallback. |
+
+#### Acceptance criteria
+- `npx tsx scripts/preload-data.ts` runs successfully and creates all 5 JSON files
+- [loader.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/data/loader.ts) functions return typed data
+- `searchGDELT()` returns formatted article titles or fallback string
+- All JSON files are < 10MB total
+
+#### Connection notes for downstream agents
+- **Worktree 2A** (backend) imports [loader.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/data/loader.ts) to inject real-world context into agent prompts
+- **Worktree 2A** imports [gdelt.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/gdelt.ts) to fetch live news context
+- **Worktree 2B** (map) imports `countries.json` directly for the choropleth GeoJSON data
+- Data shapes must match what agents reference in their system prompts (ISO3 codes, INFORM scores, etc.)
+
+---
+
+## Phase 2 — Core Features (Parallel: 3 worktrees)
+
+> **Goal:** Build the three major independent subsystems: backend AI pipeline, map visualization, and sidebar UI. Each worktree produces a self-contained module.
+> **Prerequisite:** Phase 1 merged to `dev`. Branch all Phase 2 worktrees from `dev` after merge.
+
+---
+
+### Worktree 2A · `feature/backend-pipeline`
+
+**Branch:** `feature/backend-pipeline` → PR into `dev`
+**Estimated effort:** ~4 hours
+
+#### Files to create/modify
+
+| File | Action | What to build |
+|---|---|---|
+| [lib/agents/orchestrator.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/agents/orchestrator.ts) | Implement | `runOrchestrator(scenario)` function using `generateObject()` with `openai("gpt-5.2")`, `OrchestratorSchema`, system prompt from §3.1, temperature 0.2. |
+| [lib/agents/geopolitics-agent.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/agents/geopolitics-agent.ts) | Implement | `runGeopoliticsAgent(orchestratorOutput, context)` — `streamText()` for narrative + `generateObject()` for structured output using `minimax("MiniMax-M2.5")`, system prompt from §3.2. |
+| [lib/agents/economy-agent.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/agents/economy-agent.ts) | Implement | Same pattern as geopolitics, system prompt from §3.3. |
+| [lib/agents/food-supply-agent.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/agents/food-supply-agent.ts) | Implement | Same pattern, system prompt from §3.4. |
+| [lib/agents/infrastructure-agent.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/agents/infrastructure-agent.ts) | Implement | Same pattern, system prompt from §3.5. |
+| [lib/agents/civilian-impact-agent.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/agents/civilian-impact-agent.ts) | Implement | Same pattern, system prompt from §3.6. |
+| [lib/agents/synthesis-agent.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/agents/synthesis-agent.ts) | Implement | `runSynthesisAgent(allResults, eventCategories)` — `streamText()` for narrative, `generateObject()` for structured synthesis using `openai("gpt-5.2")`, system prompt from §3.7. Calls `computeCompoundRiskScore()`. |
+| [app/api/analyze/route.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/app/api/analyze/route.ts) | Implement | Full SSE endpoint: `POST /api/analyze`. `ReadableStream` with `send()` helper. 3-phase pipeline (orchestrator → 5 agents via `Promise.allSettled()` → synthesis). All 6 SSE event types. Error handling (20s per-agent timeout, Zod retry, graceful degradation). Fallback scenario detection. |
+
+#### Acceptance criteria
+- `curl -X POST http://localhost:3000/api/analyze -d '{"scenario":"Test"}' -H 'Content-Type: application/json'` returns an SSE stream
+- All 6 event types are emitted in correct order
+- Agent timeout (20s) and `Promise.allSettled()` work correctly
+- Zod validation errors trigger one retry
+
+#### Connection notes for downstream agents
+- **Worktree 3A** (SSE client) will consume this endpoint via `fetch()` + `getReader()`
+- The SSE event format must exactly match the types in [lib/types.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/types.ts) (from 1A)
+- Each `agent_complete` event must contain a `structured` field that matches the corresponding Zod schema output type
+- The `send()` function format: `event: <name>\ndata: <json>\n\n`
+
+---
+
+### Worktree 2B · `feature/map-visualization`
+
+**Branch:** `feature/map-visualization` → PR into `dev`
+**Estimated effort:** ~4 hours
+
+#### Files to create/modify
+
+| File | Action | What to build |
+|---|---|---|
+| [components/map/MapView.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/map/MapView.tsx) | Implement | MapLibre GL via `react-map-gl/maplibre` with DeckGL overlay. Dark MapTiler tiles. `INITIAL_VIEW` state. `flyTo()` on orchestrator output. Accept props: `viewState`, `onViewStateChange`, `agentResults` (typed from schemas), `selectedCountry`, `onCountryClick`, `layerToggles`. |
+| [components/map/layers/ChoroplethLayer.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/map/layers/ChoroplethLayer.ts) | Implement | `createChoroplethLayer(countriesGeoJSON, agentResults, selectedCountry)` — `GeoJsonLayer` with 5-step fill color, extrusion by `max_impact`, transitions, white border on selected country. |
+| [components/map/layers/ConflictLayer.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/map/layers/ConflictLayer.ts) | Implement | `createConflictLayer(geopoliticsOutput)` — `ScatterplotLayer`, pulsing red circles via animated `radiusScale`. |
+| [components/map/layers/FoodDesertLayer.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/map/layers/FoodDesertLayer.ts) | Implement | `createFoodDesertLayer(countriesGeoJSON, foodOutput)` — `GeoJsonLayer` filtered to `is_food_desert === true`, orange overlay. |
+| [components/map/layers/InfrastructureLayer.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/map/layers/InfrastructureLayer.ts) | Implement | `createInfrastructureLayer(infraOutput)` — `ScatterplotLayer` color-coded by type (power/water/telecom/transport). |
+| [components/map/layers/TradeArcLayer.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/map/layers/TradeArcLayer.ts) | Implement | `createTradeArcLayer(economyOutput, foodOutput)` — `ArcLayer` merging trade routes + food supply chains, green→red by severity. |
+| [components/map/layers/DisplacementArcLayer.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/map/layers/DisplacementArcLayer.ts) | Implement | `createDisplacementArcLayer(civilianOutput)` — `ArcLayer`, blue tones, width by log10(people). |
+| [components/map/layers/HeatmapLayer.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/map/layers/HeatmapLayer.ts) | Implement | `createHeatmapLayer(allAgentResults)` — `HeatmapLayer`, merges all coordinate data weighted by severity. |
+| [components/map/MapControls.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/map/MapControls.tsx) | Implement | 7 toggle buttons with colored icons per layer. Active ring. `onToggle(layerName)` callback. |
+| [components/map/MapLegend.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/map/MapLegend.tsx) | Implement | Color scale legend: choropleth gradient (green→dark red, 1–10), arc meanings (red=trade, blue=displacement). |
+| [public/map-style.json](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/public/map-style.json) | Create | MapTiler dark style spec (or use URL directly with `NEXT_PUBLIC_MAPTILER_KEY`). |
+
+#### Acceptance criteria
+- Map renders with dark tiles and 35° pitch
+- Each `create*Layer()` function returns a valid deck.gl layer when given mock data
+- `flyTo()` smoothly animates the camera
+- Layer toggle buttons enable/disable layers
+- Clicking on a country emits its ISO3 code
+
+#### Connection notes for downstream agents
+- **Worktree 3A** will pass live agent results into `MapView` as props
+- All `create*Layer()` functions expect the *exact* typed outputs from [lib/agents/schemas.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/agents/schemas.ts)
+- The `onCountryClick(iso3)` callback is consumed by the sidebar (Worktree 2C / 3B) to display `RegionDetail`
+- `MapView` must expose a `flyTo(lat, lon, zoom)` method or accept `viewState` prop changes to trigger camera animation
+
+---
+
+### Worktree 2C · `feature/sidebar-ui`
+
+**Branch:** `feature/sidebar-ui` → PR into `dev`
+**Estimated effort:** ~3 hours
+
+#### Files to create/modify
+
+| File | Action | What to build |
+|---|---|---|
+| [components/sidebar/ScenarioInput.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/sidebar/ScenarioInput.tsx) | Implement | Textarea (3 rows, placeholder), "Analyze" button (primary blue), 3 golden-path quick-select chips below textarea. `onSubmit(scenario: string)` callback. Collapsed state (single line + "New Scenario" button) after submission. Input validation (1–500 chars). |
+| [components/sidebar/AgentPanel.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/sidebar/AgentPanel.tsx) | Implement | Single agent streaming output panel. Props: `agentName`, `streamingText`, `status` (idle/streaming/complete/error). Renders markdown text. Status indicator: pulsing green dot (streaming), spinner (processing), checkmark (complete), red X (error). |
+| [components/sidebar/AgentPanelGroup.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/sidebar/AgentPanelGroup.tsx) | Implement | Tabbed container with 6 tabs: Geo \| Econ \| Food \| Infr \| Civ \| Synthesis. Each tab label shows status indicator. Auto-selects Synthesis tab when synthesis begins. Props: `agentStates` map, `activeTab`, `onTabChange`. |
+| [components/sidebar/SynthesisPanel.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/sidebar/SynthesisPanel.tsx) | Implement | Synthesis output display. Streaming narrative text. Risk score badge with animated counter (0 → final, easing curve via `requestAnimationFrame`). Cascading risk chain display, most affected population, second-order effect. |
+| components/ui/* | Install | Run `npx shadcn@latest add button tabs badge card` to get base UI primitives. |
+
+#### Acceptance criteria
+- `ScenarioInput` submits text and shows collapsed state
+- `AgentPanelGroup` switches tabs and shows per-tab status indicators
+- `SynthesisPanel` renders streaming text and animates risk score
+- All components work with mock/hardcoded data (no backend dependency)
+
+#### Connection notes for downstream agents
+- **Worktree 3A** will wire these components to live SSE data via the `useAnalysis` hook
+- All component props must accept the types from [lib/types.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/types.ts)
+- `ScenarioInput.onSubmit` triggers the `POST /api/analyze` call (wired in 3A)
+- Tab status indicators (`streaming`/`complete`/`error`) are driven by SSE events from `agent_chunk` / `agent_complete` / `error`
+- `SynthesisPanel` receives `compound_risk_score` from the `complete` SSE event
+
+---
+
+## Phase 3 — Integration (Parallel: 2 worktrees)
+
+> **Goal:** Wire the three Phase 2 subsystems together — SSE client state management and the region detail view.
+> **Prerequisite:** All Phase 2 worktrees merged to `dev`.
+
+---
+
+### Worktree 3A · `feature/sse-client-integration`
+
+**Branch:** `feature/sse-client-integration` → PR into `dev`
+**Estimated effort:** ~3 hours
+
+#### Files to create/modify
+
+| File | Action | What to build |
+|---|---|---|
+| [hooks/use-analysis.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/hooks/use-analysis.ts) | Implement | `useAnalysis()` React hook: manages the full analysis lifecycle. Contains `analyzeScenario()` function (SSE client from MVP-SPEC §2). Manages state: `orchestratorOutput`, `agentTexts` (map of streaming text per agent), `agentResults` (map of structured output per agent), `synthesisText`, `compoundRiskScore`, `status` (idle/analyzing/complete/error), `errors`. Parses SSE via `fetch()` + `getReader()` + `TextDecoder`. Dispatches events to state. |
+| [app/page.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/app/page.tsx) | Rewrite | Main page: 70/30 CSS grid. Left: `<MapView>` with props from `useAnalysis()`. Right: sidebar containing `<ScenarioInput>`, `<AgentPanelGroup>`, `<SynthesisPanel>`. Top bar: "CryoNexus" logo, risk score badge, time horizon badge. Wire all callbacks: submit → analyze, map click → select country, tab changes. Manage `viewState` — flyTo when orchestrator returns coordinates. |
+
+#### Acceptance criteria
+- Full end-to-end flow: type scenario → agents stream → map updates → synthesis appears
+- Map zooms to correct region when orchestrator returns
+- Agent tabs show live streaming text
+- Map layers update when `agent_complete` events arrive
+- Risk score animates up to final value
+- Error handling: failed agent shows error indicator, pipeline continues
+
+#### Connection notes for downstream agents
+- This worktree is the **glue** — it imports from Worktrees 1A (types), 2A (API), 2B (map), 2C (sidebar)
+- The `useAnalysis()` hook is the single source of truth for all analysis state
+- [page.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/app/page.tsx) passes the full state + callbacks to both MapView and sidebar components
+- `flyTo` is triggered by reading `orchestratorOutput.coordinates` and `orchestratorOutput.zoom_level`
+
+---
+
+### Worktree 3B · `feature/region-detail-polish`
+
+**Branch:** `feature/region-detail-polish` → PR into `dev`
+**Estimated effort:** ~3 hours
+
+#### Files to create/modify
+
+| File | Action | What to build |
+|---|---|---|
+| [components/sidebar/RegionDetail.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/components/sidebar/RegionDetail.tsx) | Implement | Region detail view triggered by map click. "Back to Analysis" button. Country name + flag emoji. Recharts `BarChart` with 5 horizontal bars (G, E, F, I, C) colored by severity. Per-domain bullet-point summaries extracted from narratives. Key statistics table (population, GDP, displacement, risk index). Props: `iso3`, `agentResults`, `countryData`. |
+| [app/globals.css](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/app/globals.css) | Enhance | Dark theme polish: glassmorphism sidebar, smooth transitions, hover states, loading shimmer animations, agent tab status animations (pulsing dot, spinner), risk score badge styles. |
+| Top bar styling | Enhance | Style the top bar in [page.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/app/page.tsx): "CryoNexus" logo (Inter Bold, 20px, white), center risk score badge (circular, animated fill by severity color), right time horizon badge. |
+| Fallback JSON files | Create | `lib/data/fallback-suez.json`, `lib/data/fallback-texas.json`, `lib/data/fallback-greenland.json` — to be populated after running golden path scenarios. Placeholder structure for now. |
+
+#### Acceptance criteria
+- Clicking a country on the map shows the RegionDetail with Recharts bar chart
+- "Back to Analysis" returns to the agent panel view
+- Dark theme looks polished with smooth transitions
+- Top bar displays correctly with all 3 elements
+
+#### Connection notes for downstream agents
+- `RegionDetail` receives `agentResults` from the `useAnalysis()` hook (Worktree 3A)
+- It needs to extract per-country data from each agent's `affected_countries` array by matching `iso3`
+- Country statistics come from [loader.ts](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/lib/data/loader.ts) (Worktree 1B)
+- The sidebar state machine (collapsed → active → region detail) is managed in [page.tsx](file:///Users/ruchi/dev/DevSwarmProjects/innovAIte-s26/app/page.tsx) (Worktree 3A)
+
+---
+
+## Phase 4 — Final Integration & Golden Path (Sequential)
+
+> **Goal:** End-to-end testing, golden path caching, prompt tuning, deployment.
+> **Prerequisite:** ALL Phase 3 worktrees merged to `dev`.
+
+---
+
+### Worktree 4 · `feature/golden-path-finalization`
+
+**Branch:** `feature/golden-path-finalization` → PR into `dev` → merge `dev` into `main`
+**Estimated effort:** ~4 hours
+
+#### Tasks
+1. Run all 3 golden-path scenarios end-to-end, 5+ times each
+2. Save best responses as fallback JSON files
+3. Implement fallback logic in `route.ts` (exact-match detection → replay cached events with 100ms delays)
+4. Tune agent system prompts for output quality (coordinates accuracy, narrative quality)
+5. Test Zod schema validation edge cases — add retry-with-error logic
+6. Performance: throttle React state updates, memoize deck.gl layers
+7. Test on Vercel deployment (serverless cold starts, 60s timeout)
+8. Record backup demo video
+
+---
+
+## Merge Order Summary
+
+| Step | Branch | PRs into | Gate |
+|---|---|---|---|
+| 1 | `feature/shared-foundation` | `dev` | Build passes, schemas valid |
+| 2 | `feature/data-layer` | `dev` | JSON files generated, loader works |
+| 3 | `feature/backend-pipeline` | `dev` | SSE stream works with `curl` |
+| 4 | `feature/map-visualization` | `dev` | Map renders with mock data |
+| 5 | `feature/sidebar-ui` | `dev` | Components render with mock data |
+| 6 | `feature/sse-client-integration` | `dev` | Full E2E flow works |
+| 7 | `feature/region-detail-polish` | `dev` | Region detail + polish complete |
+| 8 | `feature/golden-path-finalization` | `dev` → `main` | All 3 scenarios validated |
+
+> [!CAUTION]
+> Steps 1–2 must merge before steps 3–5 can start.
+> Steps 3–5 must merge before steps 6–7 can start.
+> Steps 6–7 must merge before step 8 can start.
+> Within each group (1–2, 3–5, 6–7), order does not matter — merge in any order.
+
+---
+
+## Inter-Worktree Contract Reference
+
+This is the critical interface between worktrees. Each agent **must** use these exact imports and signatures.
+
+### Shared Types (produced by 1A, consumed by all)
+
+```typescript
+// lib/types.ts — key exports every worktree uses
+type AgentName = "geopolitics" | "economy" | "food_supply" | "infrastructure" | "civilian_impact";
+
+interface AnalysisState {
+  status: "idle" | "analyzing" | "complete" | "error";
+  orchestratorOutput: OrchestratorOutput | null;
+  agentTexts: Record<AgentName, string>;
+  agentResults: Partial<Record<AgentName, any>>;  // typed per-agent
+  synthesisText: string;
+  compoundRiskScore: number | null;
+  errors: Array<{ agent?: AgentName; message: string }>;
+}
+```
+
+### SSE Event Contract (produced by 2A, consumed by 3A)
+
+```
+event: orchestrator\ndata: {OrchestratorOutput JSON}\n\n
+event: agent_chunk\ndata: {"agent":"geopolitics","chunk":"token"}\n\n
+event: agent_complete\ndata: {"agent":"geopolitics","structured":{GeopoliticsOutput}}\n\n
+event: synthesis_chunk\ndata: {"chunk":"token"}\n\n
+event: complete\ndata: {"compound_risk_score":73}\n\n
+event: error\ndata: {"message":"...","agent":"economy"}\n\n
+```
+
+### Map Component Props (produced by 2B, consumed by 3A)
+
+```typescript
+// MapView props interface
+interface MapViewProps {
+  viewState: ViewState;
+  onViewStateChange: (vs: ViewState) => void;
+  agentResults: AnalysisState["agentResults"];
+  selectedCountry: string | null;
+  onCountryClick: (iso3: string) => void;
+  layerToggles: Record<string, boolean>;
+  onLayerToggle: (layer: string) => void;
+}
+```
+
+### Sidebar Component Props (produced by 2C, consumed by 3A)
+
+```typescript
+// ScenarioInput
+interface ScenarioInputProps {
+  onSubmit: (scenario: string) => void;
+  isAnalyzing: boolean;
+  currentScenario: string | null;
+  onReset: () => void;
+}
+
+// AgentPanelGroup
+interface AgentPanelGroupProps {
+  agentTexts: Record<AgentName, string>;
+  agentStatuses: Record<AgentName, "idle" | "streaming" | "complete" | "error">;
+  synthesisText: string;
+  activeTab: AgentName | "synthesis";
+  onTabChange: (tab: AgentName | "synthesis") => void;
+}
+```
