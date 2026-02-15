@@ -1,0 +1,14 @@
+{
+  "scenario": "Texas grid failure during winter storm",
+  "description": "Placeholder for Texas grid failure golden path scenario - to be populated after running end-to-end tests",
+  "orchestrator": null,
+  "agentResults": {
+    "geopolitics": null,
+    "economy": null,
+    "food_supply": null,
+    "infrastructure": null,
+    "civilian_impact": null
+  },
+  "synthesis": null,
+  "notes": "This file will be populated with actual agent responses after running the golden path scenario"
+}
