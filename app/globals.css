@@ -1,4 +1,58 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ── Dark Theme Tokens ─────────────────────────────────────────────── */
+
+@theme {
+  /* Core palette */
+  --background: oklch(0.145 0.015 260);
+  --foreground: oklch(0.95 0.01 260);
+
+  /* Card surfaces */
+  --card: oklch(0.18 0.015 260);
+  --card-foreground: oklch(0.95 0.01 260);
+
+  /* Primary action color */
+  --primary: oklch(0.6 0.18 250);
+  --primary-foreground: oklch(0.98 0 0);
+
+  /* Accent / highlight */
+  --accent: oklch(0.35 0.03 260);
+  --accent-foreground: oklch(0.95 0.01 260);
+
+  /* Destructive / danger */
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  /* Muted text / subtle backgrounds */
+  --muted: oklch(0.25 0.015 260);
+  --muted-foreground: oklch(0.65 0.02 260);
+
+  /* Borders & focus rings */
+  --border: oklch(0.3 0.02 260);
+  --ring: oklch(0.6 0.18 250);
+
+  /* Radius */
+  --radius: 0.625rem;
+
+  /* ── Agent Status Colors ──────────────────────────────────────────── */
+  --agent-active: oklch(0.7 0.2 145);
+  --agent-pending: oklch(0.75 0.18 85);
+  --agent-error: oklch(0.6 0.22 25);
+}
+
+/* ── Base Styles ────────────────────────────────────────────────────── */
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  border-color: var(--border);
+}
