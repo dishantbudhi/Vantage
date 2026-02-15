@@ -39,6 +39,7 @@ export function computeCompoundRiskScore(
     // Spec §11: "Determine weight vector (average if multiple categories)"
     const normalizedCats = eventCategories.map(c => c.toLowerCase());
     const weightsSum: DomainScores = { geopolitics: 0, economy: 0, food: 0, infrastructure: 0, civilian: 0 };
+    let validCategoryCount = 0;
     
     for (const cat of normalizedCats) {
         const catWeights = CATEGORY_WEIGHTS[cat];
@@ -48,10 +49,16 @@ export function computeCompoundRiskScore(
             weightsSum.food += catWeights.food;
             weightsSum.infrastructure += catWeights.infrastructure;
             weightsSum.civilian += catWeights.civilian;
+            validCategoryCount++;
         }
     }
+
+    if (validCategoryCount === 0) {
+        const unknownCats = normalizedCats.filter(c => !CATEGORY_WEIGHTS[c]);
+        throw new Error(`Unknown event categories: ${unknownCats.join(", ")}. Valid categories are: ${Object.keys(CATEGORY_WEIGHTS).join(", ")}`);
+    }
     
-    const count = normalizedCats.length || 1;
+    const count = validCategoryCount;
     const weights: DomainScores = {
         geopolitics: weightsSum.geopolitics / count,
         economy: weightsSum.economy / count,
