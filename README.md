@@ -95,7 +95,3 @@ npm run build
 
 ## Screenshots/Demo
 [![Video Title](https://img.youtube.com/vi/qXei0l8eYf0/0.jpg)](https://youtu.be/qXei0l8eYf0)
-
-
-
-![thumbnail](https://github.com/user-attachments/assets/425462bd-9067-4ef3-a2a1-1409a027f19f)
