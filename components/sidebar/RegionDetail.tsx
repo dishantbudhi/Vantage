@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { AgentResults, AgentName } from "@/lib/types";
+import type { AgentResults, AgentName, SpecialistAgentName } from "@/lib/types";
 import { AGENT_COLORS } from "./constants";
 
 interface CountryContext {
@@ -151,8 +151,6 @@ function formatNumber(num: number | undefined | null, type: "number" | "currency
       return num.toLocaleString();
   }
 }
-
-type SpecialistAgentName = "geopolitics" | "economy" | "food_supply" | "infrastructure" | "civilian_impact";
 
 function getDomainData(agentResults: AgentResults, iso3: string): DomainData[] {
   const domainMap: Record<SpecialistAgentName, string> = {

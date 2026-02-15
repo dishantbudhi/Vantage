@@ -18,6 +18,13 @@ export type AgentName =
     | "civilian_impact"
     | "synthesis";
 
+export type SpecialistAgentName =
+    | "geopolitics"
+    | "economy"
+    | "food_supply"
+    | "infrastructure"
+    | "civilian_impact";
+
 // ── SSE Event Discriminated Unions ─────────────────────────────────
 
 export type SSEOrchestratorEvent = {
