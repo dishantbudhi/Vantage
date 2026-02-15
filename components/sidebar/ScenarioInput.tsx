@@ -66,7 +66,7 @@ export default function ScenarioInput({
       
       <div className="flex items-center justify-between">
         <span className="text-xs text-muted-foreground">
-          {inputValue.length}/500
+          {inputValue.trim().length}/500
         </span>
         <Button
           onClick={handleSubmit}
