@@ -15,12 +15,13 @@ export const AGENT_LABELS: Record<AgentName | "synthesis", string> = {
   synthesis: "Synthesis",
 };
 
-export const AGENT_COLORS: Record<AgentName, string> = {
+export const AGENT_COLORS: Record<AgentName | "synthesis", string> = {
   geopolitics: "#ef4444",    // red
   economy: "#f59e0b",        // amber
   food_supply: "#22c55e",    // green
   infrastructure: "#3b82f6", // blue
   civilian_impact: "#a855f7", // purple
+  synthesis: "#06b6d4",      // cyan
 };
 
 export const RISK_SCORE_THRESHOLDS = {

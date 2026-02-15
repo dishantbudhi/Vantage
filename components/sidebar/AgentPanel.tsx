@@ -1,11 +1,11 @@
 "use client";
 
 import ReactMarkdown from "react-markdown";
-import { AgentName, AgentStatus } from "@/lib/types";
+import type { AgentName, AgentStatus } from "@/lib/types";
 import { AGENT_LABELS, AGENT_COLORS } from "./constants";
 
 interface AgentPanelProps {
-  agentName: AgentName;
+  agentName: AgentName | "synthesis";
   streamingText: string;
   status: AgentStatus;
 }
@@ -48,12 +48,12 @@ export default function AgentPanel({
       </div>
       
       <div className="flex-1 overflow-y-auto mt-3 prose prose-invert prose-sm max-w-none">
-        {streamingText ? (
-          <ReactMarkdown>{streamingText}</ReactMarkdown>
-        ) : (
+        {status === "idle" ? (
           <span className="text-muted-foreground text-sm">
             Waiting for analysis...
           </span>
+        ) : (
+          <ReactMarkdown>{streamingText}</ReactMarkdown>
         )}
       </div>
     </div>

@@ -93,7 +93,7 @@ export default function AgentPanelGroup({
         <TabsContent value="synthesis" className="h-full mt-0">
           <div className="h-full p-2">
             <AgentPanel
-              agentName="civilian_impact"
+              agentName="synthesis"
               streamingText={synthesisText}
               status={synthesisStatus}
             />
