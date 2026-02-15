@@ -1,0 +1,14 @@
+{
+  "scenario": "Suez Canal blocked + South Asian heat wave",
+  "description": "Placeholder for Suez Canal golden path scenario - to be populated after running end-to-end tests",
+  "orchestrator": null,
+  "agentResults": {
+    "geopolitics": null,
+    "economy": null,
+    "food_supply": null,
+    "infrastructure": null,
+    "civilian_impact": null
+  },
+  "synthesis": null,
+  "notes": "This file will be populated with actual agent responses after running the golden path scenario"
+}
