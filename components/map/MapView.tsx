@@ -52,18 +52,30 @@ export default function MapView({
   // Guard: defer DeckGL render until container has non-zero dimensions.
   const [ready, setReady] = useState(false);
 
+  const webglInitializedRef = useRef(false);
+
   // Suppress luma.gl initialization race condition error (upstream bug in v9.2.6).
-  // WebGLDevice registers a ResizeObserver before setting this.limits, causing a
-  // TypeError when the observer fires immediately on an already-visible canvas.
+  // Use capture phase so our handler fires before Next.js error overlay.
   useEffect(() => {
     const handler = (event: ErrorEvent) => {
       if (event.message?.includes("maxTextureDimension2D")) {
         event.preventDefault();
+        event.stopPropagation();
+        return false;
       }
     };
-    window.addEventListener("error", handler);
-    return () => window.removeEventListener("error", handler);
+    window.addEventListener("error", handler, true);
+    return () => window.removeEventListener("error", handler, true);
   }, []);
+
+  // Track WebGL initialization with a small delay
+  useEffect(() => {
+    if (!ready) return;
+    const timer = setTimeout(() => {
+      webglInitializedRef.current = true;
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [ready]);
 
   // Wait for the container to have layout dimensions before mounting DeckGL
   useEffect(() => {
@@ -72,14 +84,20 @@ export default function MapView({
 
     const check = () => {
       if (el.clientWidth > 0 && el.clientHeight > 0) {
-        setReady(true);
+        setTimeout(() => {
+          setReady(true);
+        }, 50);
       }
     };
 
     check();
 
     if (!ready) {
-      const ro = new ResizeObserver(() => check());
+      const ro = new ResizeObserver(() => {
+        if (!ready) {
+          check();
+        }
+      });
       ro.observe(el);
       return () => ro.disconnect();
     }
