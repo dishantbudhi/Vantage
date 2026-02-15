@@ -32,7 +32,7 @@ export function computeCompoundRiskScore(
     eventCategories: string[]
 ): number {
     if (!eventCategories || eventCategories.length === 0) {
-        throw new Error("At least one event category is required to compute risk score");
+        return computeCompoundRiskScore(scores, ["geopolitical", "climate", "infrastructure", "economic", "health"]);
     }
 
     // Determine weights. Average all category weights if multiple provided.

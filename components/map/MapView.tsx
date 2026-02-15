@@ -140,8 +140,14 @@ export default function MapView({
         <MapLibreMap
           ref={mapRef}
           mapStyle={MAP_STYLE}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          viewState={viewState as any}
+          // react-map-gl requires width/height in viewState; these are provided by the map container at runtime
+          viewState={
+            {
+              ...viewState,
+              width: 800,
+              height: 600,
+            } as Parameters<typeof MapLibreMap>[0]["viewState"]
+          }
           onMove={onMove}
           style={{ width: "100%", height: "100%" }}
         >

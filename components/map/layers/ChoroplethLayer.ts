@@ -1,4 +1,5 @@
 import { GeoJsonLayer } from "@deck.gl/layers";
+import { LightingEffect, AmbientLight, DirectionalLight } from "@deck.gl/core";
 import type { AgentResults } from "@/lib/types";
 import type { GeopoliticsOutput, EconomyOutput, FoodSupplyOutput, InfrastructureOutput, CivilianImpactOutput } from "@/lib/agents/schemas";
 
@@ -14,6 +15,20 @@ const COLOR_SCALE: Record<number, number[]> = {
   9: [127, 29, 29],    // dark red
   10: [127, 29, 29],   // dark red
 };
+
+const ambientLight = new AmbientLight({
+  color: [255, 255, 255],
+  intensity: 1.0,
+});
+
+const directionalLight = new DirectionalLight({
+  color: [255, 255, 255],
+  intensity: 1.0,
+  direction: [-1, -2, -3],
+  _shadow: true,
+});
+
+const lightingEffect = new LightingEffect({ ambientLight, directionalLight });
 
 function getImpactColor(impact: number): number[] {
   const color = COLOR_SCALE[impact] || [160, 160, 160];
@@ -98,6 +113,13 @@ export function createChoroplethLayer(
     extruded: true,
     pickable: true,
     opacity: 0.8,
+    lightingEffect: lightingEffect,
+    material: {
+      ambient: 0.5,
+      diffuse: 0.8,
+      shininess: 32,
+      specularColor: [255, 255, 255],
+    },
     getFillColor: (d: any) => {
       const impact = d.properties?.max_impact || 0;
       return getImpactColor(impact);

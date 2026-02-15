@@ -156,6 +156,11 @@ export async function POST(req: NextRequest) {
           }
         }
 
+        if (Object.keys(fulfilledResults).length === 0) {
+          sendError("All agents failed. Cannot proceed with analysis.");
+          return;
+        }
+
         send("status", { status: "synthesizing", message: "Generating synthesis..." });
 
         const synthesisResult = await runSynthesisAgent(
@@ -193,8 +198,7 @@ export async function POST(req: NextRequest) {
   });
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function runAgentWithTimeout(
+function runAgentWithTimeout(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   runFn: any,
   orchestratorOutput: OrchestratorOutput,
@@ -202,18 +206,19 @@ async function runAgentWithTimeout(
   timeoutMs: number,
   onChunk?: (chunk: string) => void
 ): Promise<{ narrative: string; structured: unknown }> {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const timeoutId = setTimeout(() => {
       reject(new Error(`Agent timed out after ${timeoutMs}ms`));
     }, timeoutMs);
 
-    try {
-      const result = await runFn(orchestratorOutput, gdeltContext, { onChunk });
-      clearTimeout(timeoutId);
-      resolve(result);
-    } catch (error) {
-      clearTimeout(timeoutId);
-      reject(error);
-    }
+    runFn(orchestratorOutput, gdeltContext, { onChunk })
+      .then((result: unknown) => {
+        clearTimeout(timeoutId);
+        resolve(result as { narrative: string; structured: unknown });
+      })
+      .catch((error: unknown) => {
+        clearTimeout(timeoutId);
+        reject(error);
+      });
   });
 }
