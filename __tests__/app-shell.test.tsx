@@ -1,3 +1,4 @@
+// @vitest-environment happy-dom
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import fs from "fs";
@@ -16,8 +17,10 @@ describe("globals.css — Dark Theme Tokens", () => {
         expect(cssContent).toContain('@import "tailwindcss"');
     });
 
-    it("imports Inter font from Google Fonts", () => {
-        expect(cssContent).toMatch(/fonts\.googleapis\.com.*Inter/);
+    it("references Inter font family", () => {
+        // Inter font is imported via next/font/google in layout.tsx, not in CSS directly
+        // CSS uses the font-family declaration
+        expect(cssContent).toContain("Inter");
     });
 
     it("defines --background custom property", () => {

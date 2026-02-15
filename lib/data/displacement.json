@@ -1,0 +1,1046 @@
+{
+  "AFG": {
+    "refugees": 34826,
+    "asylum_seekers": 250,
+    "idps": 3222397,
+    "stateless": 0
+  },
+  "ALB": {
+    "refugees": 5079,
+    "asylum_seekers": 8,
+    "idps": 0,
+    "stateless": 2018
+  },
+  "EGY": {
+    "refugees": 240507,
+    "asylum_seekers": 232244,
+    "idps": 0,
+    "stateless": 10
+  },
+  "ARG": {
+    "refugees": 4104,
+    "asylum_seekers": 7129,
+    "idps": 0,
+    "stateless": 22
+  },
+  "ARM": {
+    "refugees": 150080,
+    "asylum_seekers": 615,
+    "idps": 0,
+    "stateless": 520
+  },
+  "AUS": {
+    "refugees": 34502,
+    "asylum_seekers": 82625,
+    "idps": 0,
+    "stateless": 8073
+  },
+  "AUT": {
+    "refugees": 257811,
+    "asylum_seekers": 38039,
+    "idps": 0,
+    "stateless": 3194
+  },
+  "AZE": {
+    "refugees": 5771,
+    "asylum_seekers": 168,
+    "idps": 657749,
+    "stateless": 513
+  },
+  "BEL": {
+    "refugees": 167831,
+    "asylum_seekers": 44600,
+    "idps": 0,
+    "stateless": 936
+  },
+  "BEN": {
+    "refugees": 2825,
+    "asylum_seekers": 10133,
+    "idps": 8785,
+    "stateless": 0
+  },
+  "BLR": {
+    "refugees": 39981,
+    "asylum_seekers": 405,
+    "idps": 0,
+    "stateless": 5567
+  },
+  "BRA": {
+    "refugees": 235765,
+    "asylum_seekers": 68101,
+    "idps": 0,
+    "stateless": 5
+  },
+  "BIH": {
+    "refugees": 348,
+    "asylum_seekers": 81,
+    "idps": 91223,
+    "stateless": 21
+  },
+  "BGR": {
+    "refugees": 97618,
+    "asylum_seekers": 11941,
+    "idps": 0,
+    "stateless": 817
+  },
+  "CAN": {
+    "refugees": 169448,
+    "asylum_seekers": 197961,
+    "idps": 0,
+    "stateless": 5222
+  },
+  "CHN": {
+    "refugees": 296,
+    "asylum_seekers": 699,
+    "idps": 0,
+    "stateless": 0
+  },
+  "CHL": {
+    "refugees": 2338,
+    "asylum_seekers": 12694,
+    "idps": 0,
+    "stateless": 1708
+  },
+  "COL": {
+    "refugees": 1382,
+    "asylum_seekers": 23842,
+    "idps": 6918373,
+    "stateless": 0
+  },
+  "CUB": {
+    "refugees": 136,
+    "asylum_seekers": 25,
+    "idps": 0,
+    "stateless": 0
+  },
+  "CYP": {
+    "refugees": 39044,
+    "asylum_seekers": 31664,
+    "idps": 0,
+    "stateless": 86
+  },
+  "CZE": {
+    "refugees": 377120,
+    "asylum_seekers": 1239,
+    "idps": 0,
+    "stateless": 1611
+  },
+  "DNK": {
+    "refugees": 68912,
+    "asylum_seekers": 2356,
+    "idps": 0,
+    "stateless": 8657
+  },
+  "DOM": {
+    "refugees": 778,
+    "asylum_seekers": 4185,
+    "idps": 0,
+    "stateless": 0
+  },
+  "ECU": {
+    "refugees": 62899,
+    "asylum_seekers": 7700,
+    "idps": 0,
+    "stateless": 0
+  },
+  "EST": {
+    "refugees": 42005,
+    "asylum_seekers": 346,
+    "idps": 0,
+    "stateless": 65944
+  },
+  "ETH": {
+    "refugees": 979846,
+    "asylum_seekers": 63747,
+    "idps": 2561497,
+    "stateless": 0
+  },
+  "FJI": {
+    "refugees": 15,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 0
+  },
+  "FIN": {
+    "refugees": 89869,
+    "asylum_seekers": 7410,
+    "idps": 0,
+    "stateless": 2974
+  },
+  "FRA": {
+    "refugees": 664366,
+    "asylum_seekers": 79642,
+    "idps": 0,
+    "stateless": 4174
+  },
+  "GMB": {
+    "refugees": 3809,
+    "asylum_seekers": 446,
+    "idps": 0,
+    "stateless": 0
+  },
+  "GBR": {
+    "refugees": 448620,
+    "asylum_seekers": 138156,
+    "idps": 0,
+    "stateless": 4547
+  },
+  "GEO": {
+    "refugees": 26019,
+    "asylum_seekers": 1051,
+    "idps": 295831,
+    "stateless": 530
+  },
+  "DEU": {
+    "refugees": 2593007,
+    "asylum_seekers": 361493,
+    "idps": 0,
+    "stateless": 28964
+  },
+  "GHA": {
+    "refugees": 7057,
+    "asylum_seekers": 4209,
+    "idps": 0,
+    "stateless": 0
+  },
+  "GRC": {
+    "refugees": 192384,
+    "asylum_seekers": 32687,
+    "idps": 0,
+    "stateless": 3743
+  },
+  "GUY": {
+    "refugees": 27,
+    "asylum_seekers": 55,
+    "idps": 0,
+    "stateless": 0
+  },
+  "HKG": {
+    "refugees": 301,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 0
+  },
+  "HRV": {
+    "refugees": 25029,
+    "asylum_seekers": 1597,
+    "idps": 0,
+    "stateless": 742
+  },
+  "HUN": {
+    "refugees": 63180,
+    "asylum_seekers": 5,
+    "idps": 0,
+    "stateless": 137
+  },
+  "ISL": {
+    "refugees": 8715,
+    "asylum_seekers": 2850,
+    "idps": 0,
+    "stateless": 31
+  },
+  "IND": {
+    "refugees": 252867,
+    "asylum_seekers": 11926,
+    "idps": 0,
+    "stateless": 22646
+  },
+  "IDN": {
+    "refugees": 8450,
+    "asylum_seekers": 3793,
+    "idps": 0,
+    "stateless": 2093
+  },
+  "IRL": {
+    "refugees": 113902,
+    "asylum_seekers": 22250,
+    "idps": 0,
+    "stateless": 53
+  },
+  "IRN": {
+    "refugees": 3764517,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 0
+  },
+  "IRQ": {
+    "refugees": 286480,
+    "asylum_seekers": 12586,
+    "idps": 1123663,
+    "stateless": 233
+  },
+  "ITA": {
+    "refugees": 298296,
+    "asylum_seekers": 146922,
+    "idps": 0,
+    "stateless": 3000
+  },
+  "JOR": {
+    "refugees": 684066,
+    "asylum_seekers": 39775,
+    "idps": 0,
+    "stateless": 68
+  },
+  "JPN": {
+    "refugees": 22335,
+    "asylum_seekers": 23916,
+    "idps": 0,
+    "stateless": 503
+  },
+  "KAZ": {
+    "refugees": 42685,
+    "asylum_seekers": 476,
+    "idps": 0,
+    "stateless": 7892
+  },
+  "KEN": {
+    "refugees": 538899,
+    "asylum_seekers": 152942,
+    "idps": 0,
+    "stateless": 9800
+  },
+  "KGZ": {
+    "refugees": 27790,
+    "asylum_seekers": 1203,
+    "idps": 0,
+    "stateless": 20
+  },
+  "KOR": {
+    "refugees": 4053,
+    "asylum_seekers": 26738,
+    "idps": 0,
+    "stateless": 246
+  },
+  "KWT": {
+    "refugees": 572,
+    "asylum_seekers": 879,
+    "idps": 0,
+    "stateless": 92000
+  },
+  "LBY": {
+    "refugees": 1837,
+    "asylum_seekers": 54837,
+    "idps": 125802,
+    "stateless": 0
+  },
+  "LBN": {
+    "refugees": 788472,
+    "asylum_seekers": 7614,
+    "idps": 0,
+    "stateless": 0
+  },
+  "LKA": {
+    "refugees": 377,
+    "asylum_seekers": 178,
+    "idps": 4806,
+    "stateless": 111
+  },
+  "LTU": {
+    "refugees": 80225,
+    "asylum_seekers": 333,
+    "idps": 0,
+    "stateless": 2331
+  },
+  "LUX": {
+    "refugees": 13735,
+    "asylum_seekers": 3745,
+    "idps": 0,
+    "stateless": 201
+  },
+  "LVA": {
+    "refugees": 45761,
+    "asylum_seekers": 552,
+    "idps": 0,
+    "stateless": 180614
+  },
+  "MDG": {
+    "refugees": 49,
+    "asylum_seekers": 938,
+    "idps": 0,
+    "stateless": 0
+  },
+  "MKD": {
+    "refugees": 18898,
+    "asylum_seekers": 39,
+    "idps": 0,
+    "stateless": 275
+  },
+  "MDA": {
+    "refugees": 120947,
+    "asylum_seekers": 556,
+    "idps": 0,
+    "stateless": 3267
+  },
+  "MEX": {
+    "refugees": 124784,
+    "asylum_seekers": 257396,
+    "idps": 262411,
+    "stateless": 13
+  },
+  "MYS": {
+    "refugees": 135872,
+    "asylum_seekers": 48571,
+    "idps": 0,
+    "stateless": 117070
+  },
+  "MNG": {
+    "refugees": 10,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 17
+  },
+  "MAR": {
+    "refugees": 8295,
+    "asylum_seekers": 11340,
+    "idps": 0,
+    "stateless": 0
+  },
+  "MLT": {
+    "refugees": 11724,
+    "asylum_seekers": 815,
+    "idps": 0,
+    "stateless": 0
+  },
+  "NPL": {
+    "refugees": 19582,
+    "asylum_seekers": 300,
+    "idps": 0,
+    "stateless": 489
+  },
+  "NLD": {
+    "refugees": 237767,
+    "asylum_seekers": 43915,
+    "idps": 0,
+    "stateless": 4816
+  },
+  "NGA": {
+    "refugees": 69940,
+    "asylum_seekers": 34170,
+    "idps": 3313601,
+    "stateless": 0
+  },
+  "NOR": {
+    "refugees": 103606,
+    "asylum_seekers": 4967,
+    "idps": 0,
+    "stateless": 2046
+  },
+  "NZL": {
+    "refugees": 1837,
+    "asylum_seekers": 1839,
+    "idps": 0,
+    "stateless": 29
+  },
+  "OMN": {
+    "refugees": 300,
+    "asylum_seekers": 421,
+    "idps": 0,
+    "stateless": 0
+  },
+  "PAK": {
+    "refugees": 1988231,
+    "asylum_seekers": 61648,
+    "idps": 0,
+    "stateless": 59
+  },
+  "PAN": {
+    "refugees": 2724,
+    "asylum_seekers": 8419,
+    "idps": 0,
+    "stateless": 0
+  },
+  "PRY": {
+    "refugees": 5991,
+    "asylum_seekers": 1598,
+    "idps": 0,
+    "stateless": 5
+  },
+  "PER": {
+    "refugees": 6712,
+    "asylum_seekers": 508429,
+    "idps": 0,
+    "stateless": 32
+  },
+  "PHL": {
+    "refugees": 934,
+    "asylum_seekers": 1029,
+    "idps": 108237,
+    "stateless": 28
+  },
+  "PNG": {
+    "refugees": 10523,
+    "asylum_seekers": 3298,
+    "idps": 95000,
+    "stateless": 0
+  },
+  "POL": {
+    "refugees": 971478,
+    "asylum_seekers": 6989,
+    "idps": 0,
+    "stateless": 1540
+  },
+  "PRT": {
+    "refugees": 62807,
+    "asylum_seekers": 1267,
+    "idps": 0,
+    "stateless": 31
+  },
+  "ROU": {
+    "refugees": 87487,
+    "asylum_seekers": 1068,
+    "idps": 0,
+    "stateless": 287
+  },
+  "ZAF": {
+    "refugees": 67145,
+    "asylum_seekers": 86911,
+    "idps": 0,
+    "stateless": 0
+  },
+  "RUS": {
+    "refugees": 1230131,
+    "asylum_seekers": 891,
+    "idps": 0,
+    "stateless": 92209
+  },
+  "RWA": {
+    "refugees": 115643,
+    "asylum_seekers": 12660,
+    "idps": 0,
+    "stateless": 9500
+  },
+  "SEN": {
+    "refugees": 11856,
+    "asylum_seekers": 770,
+    "idps": 0,
+    "stateless": 0
+  },
+  "ESP": {
+    "refugees": 385701,
+    "asylum_seekers": 204270,
+    "idps": 0,
+    "stateless": 8579
+  },
+  "SRB": {
+    "refugees": 29365,
+    "asylum_seekers": 163,
+    "idps": 209790,
+    "stateless": 2329
+  },
+  "SUR": {
+    "refugees": 24,
+    "asylum_seekers": 2609,
+    "idps": 0,
+    "stateless": 0
+  },
+  "SVK": {
+    "refugees": 126866,
+    "asylum_seekers": 92,
+    "idps": 0,
+    "stateless": 49
+  },
+  "SVN": {
+    "refugees": 10525,
+    "asylum_seekers": 1143,
+    "idps": 0,
+    "stateless": 10
+  },
+  "SWE": {
+    "refugees": 237632,
+    "asylum_seekers": 11271,
+    "idps": 0,
+    "stateless": 18698
+  },
+  "CHE": {
+    "refugees": 192507,
+    "asylum_seekers": 18884,
+    "idps": 0,
+    "stateless": 1185
+  },
+  "SYR": {
+    "refugees": 12011,
+    "asylum_seekers": 4861,
+    "idps": 7248188,
+    "stateless": 160000
+  },
+  "THA": {
+    "refugees": 87314,
+    "asylum_seekers": 1674,
+    "idps": 0,
+    "stateless": 587132
+  },
+  "TJK": {
+    "refugees": 10092,
+    "asylum_seekers": 1387,
+    "idps": 0,
+    "stateless": 3827
+  },
+  "TKM": {
+    "refugees": 3614,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 3583
+  },
+  "TUN": {
+    "refugees": 3994,
+    "asylum_seekers": 11093,
+    "idps": 0,
+    "stateless": 0
+  },
+  "TUR": {
+    "refugees": 3251127,
+    "asylum_seekers": 222069,
+    "idps": 0,
+    "stateless": 415
+  },
+  "ARE": {
+    "refugees": 1416,
+    "asylum_seekers": 7044,
+    "idps": 0,
+    "stateless": 0
+  },
+  "UGA": {
+    "refugees": 1577498,
+    "asylum_seekers": 37657,
+    "idps": 0,
+    "stateless": 67000
+  },
+  "UKR": {
+    "refugees": 2512,
+    "asylum_seekers": 498,
+    "idps": 3689000,
+    "stateless": 35765
+  },
+  "URY": {
+    "refugees": 1285,
+    "asylum_seekers": 24173,
+    "idps": 0,
+    "stateless": 5
+  },
+  "USA": {
+    "refugees": 409202,
+    "asylum_seekers": 2601468,
+    "idps": 0,
+    "stateless": 0
+  },
+  "UZB": {
+    "refugees": 9405,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 22496
+  },
+  "VEN": {
+    "refugees": 29336,
+    "asylum_seekers": 1578,
+    "idps": 0,
+    "stateless": 0
+  },
+  "ZMB": {
+    "refugees": 72411,
+    "asylum_seekers": 5549,
+    "idps": 0,
+    "stateless": 0
+  },
+  "ISR": {
+    "refugees": 1235,
+    "asylum_seekers": 25464,
+    "idps": 0,
+    "stateless": 35
+  },
+  "CAF": {
+    "refugees": 32913,
+    "asylum_seekers": 32506,
+    "idps": 511803,
+    "stateless": 0
+  },
+  "CMR": {
+    "refugees": 485285,
+    "asylum_seekers": 10288,
+    "idps": 1075252,
+    "stateless": 0
+  },
+  "COG": {
+    "refugees": 60637,
+    "asylum_seekers": 6585,
+    "idps": 0,
+    "stateless": 0
+  },
+  "COD": {
+    "refugees": 523392,
+    "asylum_seekers": 3106,
+    "idps": 6251790,
+    "stateless": 0
+  },
+  "CRI": {
+    "refugees": 23422,
+    "asylum_seekers": 193718,
+    "idps": 0,
+    "stateless": 327
+  },
+  "SWZ": {
+    "refugees": 1202,
+    "asylum_seekers": 1772,
+    "idps": 0,
+    "stateless": 0
+  },
+  "ZWE": {
+    "refugees": 10114,
+    "asylum_seekers": 12451,
+    "idps": 0,
+    "stateless": 0
+  },
+  "BHR": {
+    "refugees": 254,
+    "asylum_seekers": 122,
+    "idps": 0,
+    "stateless": 0
+  },
+  "CIV": {
+    "refugees": 2370,
+    "asylum_seekers": 37460,
+    "idps": 0,
+    "stateless": 930978
+  },
+  "QAT": {
+    "refugees": 197,
+    "asylum_seekers": 140,
+    "idps": 0,
+    "stateless": 1200
+  },
+  "SOM": {
+    "refugees": 17770,
+    "asylum_seekers": 20500,
+    "idps": 3860099,
+    "stateless": 0
+  },
+  "SDN": {
+    "refugees": 922474,
+    "asylum_seekers": 39510,
+    "idps": 9052822,
+    "stateless": 0
+  },
+  "YEM": {
+    "refugees": 55568,
+    "asylum_seekers": 15259,
+    "idps": 4516341,
+    "stateless": 0
+  },
+  "BOL": {
+    "refugees": 1117,
+    "asylum_seekers": 76,
+    "idps": 0,
+    "stateless": 0
+  },
+  "GTM": {
+    "refugees": 989,
+    "asylum_seekers": 2051,
+    "idps": 0,
+    "stateless": 0
+  },
+  "LIE": {
+    "refugees": 597,
+    "asylum_seekers": 10,
+    "idps": 0,
+    "stateless": 0
+  },
+  "MNE": {
+    "refugees": 64733,
+    "asylum_seekers": 174,
+    "idps": 0,
+    "stateless": 416
+  },
+  "AGO": {
+    "refugees": 25174,
+    "asylum_seekers": 30268,
+    "idps": 0,
+    "stateless": 0
+  },
+  "BDI": {
+    "refugees": 85229,
+    "asylum_seekers": 2270,
+    "idps": 8177,
+    "stateless": 791
+  },
+  "BFA": {
+    "refugees": 37735,
+    "asylum_seekers": 1146,
+    "idps": 2062534,
+    "stateless": 0
+  },
+  "BWA": {
+    "refugees": 761,
+    "asylum_seekers": 97,
+    "idps": 0,
+    "stateless": 0
+  },
+  "TCD": {
+    "refugees": 1100921,
+    "asylum_seekers": 4916,
+    "idps": 215928,
+    "stateless": 0
+  },
+  "GAB": {
+    "refugees": 204,
+    "asylum_seekers": 86,
+    "idps": 0,
+    "stateless": 0
+  },
+  "GIN": {
+    "refugees": 2191,
+    "asylum_seekers": 54,
+    "idps": 0,
+    "stateless": 0
+  },
+  "MLI": {
+    "refugees": 66443,
+    "asylum_seekers": 273,
+    "idps": 354739,
+    "stateless": 0
+  },
+  "MWI": {
+    "refugees": 35201,
+    "asylum_seekers": 17695,
+    "idps": 0,
+    "stateless": 0
+  },
+  "MOZ": {
+    "refugees": 5152,
+    "asylum_seekers": 18438,
+    "idps": 582764,
+    "stateless": 0
+  },
+  "NAM": {
+    "refugees": 5157,
+    "asylum_seekers": 1978,
+    "idps": 0,
+    "stateless": 0
+  },
+  "SSD": {
+    "refugees": 381236,
+    "asylum_seekers": 4871,
+    "idps": 1236672,
+    "stateless": 10500
+  },
+  "TZA": {
+    "refugees": 188953,
+    "asylum_seekers": 40143,
+    "idps": 0,
+    "stateless": 0
+  },
+  "TGO": {
+    "refugees": 28240,
+    "asylum_seekers": 4400,
+    "idps": 9680,
+    "stateless": 0
+  },
+  "DZA": {
+    "refugees": 98590,
+    "asylum_seekers": 3601,
+    "idps": 0,
+    "stateless": 0
+  },
+  "MRT": {
+    "refugees": 112549,
+    "asylum_seekers": 5927,
+    "idps": 0,
+    "stateless": 0
+  },
+  "NER": {
+    "refugees": 269996,
+    "asylum_seekers": 35570,
+    "idps": 335277,
+    "stateless": 0
+  },
+  "NRU": {
+    "refugees": 0,
+    "asylum_seekers": 13,
+    "idps": 0,
+    "stateless": 0
+  },
+  "TTO": {
+    "refugees": 3205,
+    "asylum_seekers": 28617,
+    "idps": 0,
+    "stateless": 0
+  },
+  "BHS": {
+    "refugees": 0,
+    "asylum_seekers": 31,
+    "idps": 0,
+    "stateless": 0
+  },
+  "LBR": {
+    "refugees": 1164,
+    "asylum_seekers": 618,
+    "idps": 0,
+    "stateless": 0
+  },
+  "MUS": {
+    "refugees": 5,
+    "asylum_seekers": 19,
+    "idps": 0,
+    "stateless": 0
+  },
+  "SAU": {
+    "refugees": 477,
+    "asylum_seekers": 3945,
+    "idps": 0,
+    "stateless": 70000
+  },
+  "VUT": {
+    "refugees": 0,
+    "asylum_seekers": 5,
+    "idps": 0,
+    "stateless": 0
+  },
+  "LSO": {
+    "refugees": 319,
+    "asylum_seekers": 363,
+    "idps": 0,
+    "stateless": 0
+  },
+  "KNA": {
+    "refugees": 19,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 0
+  },
+  "COM": {
+    "refugees": 10,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 0
+  },
+  "DJI": {
+    "refugees": 23063,
+    "asylum_seekers": 8442,
+    "idps": 0,
+    "stateless": 0
+  },
+  "HND": {
+    "refugees": 182,
+    "asylum_seekers": 101,
+    "idps": 247090,
+    "stateless": 0
+  },
+  "NIC": {
+    "refugees": 311,
+    "asylum_seekers": 124,
+    "idps": 0,
+    "stateless": 0
+  },
+  "SLV": {
+    "refugees": 106,
+    "asylum_seekers": 263,
+    "idps": 71500,
+    "stateless": 0
+  },
+  "SXM": {
+    "refugees": 5,
+    "asylum_seekers": 128,
+    "idps": 0,
+    "stateless": 0
+  },
+  "BLZ": {
+    "refugees": 214,
+    "asylum_seekers": 1973,
+    "idps": 0,
+    "stateless": 0
+  },
+  "CYM": {
+    "refugees": 49,
+    "asylum_seekers": 93,
+    "idps": 0,
+    "stateless": 0
+  },
+  "ERI": {
+    "refugees": 119,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 0
+  },
+  "BRB": {
+    "refugees": 5,
+    "asylum_seekers": 10,
+    "idps": 0,
+    "stateless": 0
+  },
+  "HTI": {
+    "refugees": 0,
+    "asylum_seekers": 0,
+    "idps": 313901,
+    "stateless": 0
+  },
+  "LCA": {
+    "refugees": 0,
+    "asylum_seekers": 5,
+    "idps": 0,
+    "stateless": 0
+  },
+  "GNB": {
+    "refugees": 24,
+    "asylum_seekers": 30,
+    "idps": 0,
+    "stateless": 0
+  },
+  "MCO": {
+    "refugees": 17,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 0
+  },
+  "VNM": {
+    "refugees": 19,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 26811
+  },
+  "TCA": {
+    "refugees": 7,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 0
+  },
+  "BGD": {
+    "refugees": 971984,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 971898
+  },
+  "KHM": {
+    "refugees": 24,
+    "asylum_seekers": 5,
+    "idps": 0,
+    "stateless": 75000
+  },
+  "MMR": {
+    "refugees": 0,
+    "asylum_seekers": 0,
+    "idps": 2607645,
+    "stateless": 632789
+  },
+  "SLB": {
+    "refugees": 0,
+    "asylum_seekers": 0,
+    "idps": 1000,
+    "stateless": 0
+  },
+  "BRN": {
+    "refugees": 0,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 20863
+  },
+  "CPV": {
+    "refugees": 0,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 115
+  },
+  "SGP": {
+    "refugees": 0,
+    "asylum_seekers": 0,
+    "idps": 0,
+    "stateless": 1109
+  }
+}

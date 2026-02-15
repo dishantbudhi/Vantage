@@ -38,16 +38,27 @@ export default function ScenarioInput({
     setInputValue(scenario);
   };
 
-  if (currentScenario && !isAnalyzing) {
+  // Show collapsed state when we have a current scenario (both during and after analysis)
+  if (currentScenario) {
     return (
-      <div className="flex flex-col gap-3 p-4 border border-border rounded-lg bg-card">
+      <div className="flex flex-col gap-2 p-4 border-b border-border">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">Current scenario:</span>
-          <Button variant="outline" size="sm" onClick={onReset}>
+          <span className="text-xs text-muted-foreground uppercase tracking-wider">
+            {isAnalyzing ? "Analyzing" : "Scenario"}
+          </span>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onReset}
+            disabled={isAnalyzing}
+            className="text-xs h-7"
+          >
             New Scenario
           </Button>
         </div>
-        <p className="text-sm font-medium text-card-foreground">{currentScenario}</p>
+        <p className="text-sm font-medium text-card-foreground line-clamp-2">
+          {currentScenario}
+        </p>
       </div>
     );
   }
