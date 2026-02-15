@@ -141,4 +141,12 @@ export interface ViewState {
     pitch: number;
     bearing: number;
     transitionDuration?: number;
+    padding?: {
+        top: number;
+        bottom: number;
+        left: number;
+        right: number;
+    };
+    width?: number;
+    height?: number;
 }

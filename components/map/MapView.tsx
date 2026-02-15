@@ -127,10 +127,11 @@ export default function MapView({
   return (
     <div className="relative w-full h-full">
       <DeckGL
-        initialViewState={INITIAL_VIEW}
+        viewState={viewState}
         controller={true}
         layers={layers}
         onClick={onClick}
+        onViewStateChange={({ viewState: newViewState }) => onViewStateChange(newViewState as ViewState)}
         getTooltip={({ object }) =>
           object?.properties?.NAME || object?.properties?.ISO_A3 || null
         }
@@ -139,7 +140,8 @@ export default function MapView({
         <MapLibreMap
           ref={mapRef}
           mapStyle={MAP_STYLE}
-          initialViewState={INITIAL_VIEW}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          viewState={viewState as any}
           onMove={onMove}
           style={{ width: "100%", height: "100%" }}
         >
