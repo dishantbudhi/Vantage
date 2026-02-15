@@ -1,0 +1,12 @@
+{
+  "version": 8,
+  "name": "Dark",
+  "sources": {
+    "maptiler_planet": {
+      "type": "vector",
+      "url": "https://api.maptiler.com/tiles/v3/tiles.json"
+    }
+  },
+  "layers": [],
+  "id": "dark"
+}
