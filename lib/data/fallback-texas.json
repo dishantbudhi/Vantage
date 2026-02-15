@@ -1,14 +1,187 @@
 {
   "scenario": "Texas grid failure during winter storm",
-  "description": "Placeholder for Texas grid failure golden path scenario - to be populated after running end-to-end tests",
-  "orchestrator": null,
-  "agentResults": {
-    "geopolitics": null,
-    "economy": null,
-    "food_supply": null,
-    "infrastructure": null,
-    "civilian_impact": null
+  "orchestrator": {
+    "scenario_summary": "A severe winter storm causes the Texas ERCOT power grid to fail catastrophically, leaving millions without heat, water, and essential services during sub-zero temperatures.",
+    "primary_regions": ["USA"],
+    "secondary_regions": ["MEX", "CAN"],
+    "coordinates": { "lat": 31.0, "lon": -97.5 },
+    "zoom_level": 6,
+    "time_horizon": "immediate",
+    "severity": 7,
+    "event_categories": ["infrastructure", "economic"],
+    "context_queries": {
+      "geopolitics": "Texas ERCOT grid failure federal emergency FEMA 2026",
+      "economy": "Texas power outage economic impact data centers oil refineries 2026",
+      "food": "Texas winter storm livestock losses food supply cold chain 2026",
+      "infrastructure": "ERCOT grid collapse cascading failure water telecom 2026",
+      "civilian": "Texas winter storm displacement hypothermia vulnerable populations 2026"
+    }
   },
-  "synthesis": null,
-  "notes": "This file will be populated with actual agent responses after running the golden path scenario"
+  "agentResults": {
+    "geopolitics": {
+      "affected_countries": [
+        {
+          "iso3": "USA",
+          "impact_score": 6,
+          "stance": "allied",
+          "key_concerns": ["Federal emergency declaration triggers FEMA response", "Political fallout over ERCOT deregulation"],
+          "alliance_impacts": ["Interstate mutual aid compacts with OK, LA, AR, NM", "National Guard mobilization"]
+        },
+        {
+          "iso3": "MEX",
+          "impact_score": 4,
+          "stance": "neutral",
+          "key_concerns": ["Shared grid segments with northern Mexico affected", "Cross-border natural gas supply disruption"],
+          "alliance_impacts": ["USMCA energy provisions activated", "Bilateral emergency energy sharing"]
+        }
+      ],
+      "conflict_zones": [
+        {
+          "coordinates": [-97.74, 30.27],
+          "radius_km": 200,
+          "intensity": 5,
+          "type": "diplomatic_crisis"
+        }
+      ],
+      "narrative": "The ERCOT grid failure triggers an immediate federal emergency declaration, mobilizing FEMA Region 6 and the National Guard. The political fallout is severe: ERCOT's deliberate isolation from the Eastern and Western Interconnections — a deregulation choice made decades ago — becomes a focal point for Congressional hearings.\n\nInterstate mutual aid compacts activate with Oklahoma, Louisiana, Arkansas, and New Mexico, but these neighboring states have limited spare capacity during a winter storm that extends across the central US. The Department of Energy invokes emergency orders to redirect natural gas from pipeline networks, creating allocation conflicts with Mexico's northern grid regions that share gas infrastructure through cross-border pipelines.\n\nTexas Governor declares a state of disaster for all 254 counties. The Federal Energy Regulatory Commission (FERC) initiates an emergency investigation. The most consequential geopolitical shift is domestic: the crisis reignites the debate over grid interconnection, with bipartisan calls to connect ERCOT to the Eastern Interconnection — a $15B infrastructure project that would fundamentally restructure US energy policy. The escalation pathway runs through federal vs. state authority over grid regulation."
+    },
+    "economy": {
+      "affected_countries": [
+        {
+          "iso3": "USA",
+          "gdp_impact_pct": -0.3,
+          "trade_disruption": 7,
+          "key_sectors": ["energy", "tech", "agriculture", "manufacturing"],
+          "unemployment_risk": "medium"
+        },
+        {
+          "iso3": "MEX",
+          "gdp_impact_pct": -0.1,
+          "trade_disruption": 3,
+          "key_sectors": ["energy", "manufacturing"],
+          "unemployment_risk": "low"
+        }
+      ],
+      "trade_routes_disrupted": [
+        {
+          "from": [-95.27, 29.73],
+          "to": [-90.07, 29.95],
+          "commodity": "Refined petroleum",
+          "severity": 8
+        },
+        {
+          "from": [-97.74, 30.27],
+          "to": [-122.33, 47.61],
+          "commodity": "Natural gas",
+          "severity": 7
+        },
+        {
+          "from": [-96.80, 32.78],
+          "to": [-73.94, 40.67],
+          "commodity": "Semiconductors",
+          "severity": 6
+        }
+      ],
+      "narrative": "The Texas grid failure triggers $50-80 billion in economic losses over two weeks, making it one of the costliest infrastructure disasters in US history. The Houston Ship Channel — handling 25% of US petroleum refining — shuts down as refineries lose power and pipes freeze, removing 4 million barrels per day of refining capacity from the market. Gasoline prices spike 15% nationally within 48 hours.\n\nThe tech sector faces severe disruption: major data center clusters in Dallas-Fort Worth (hosting facilities for AWS, Google, Meta, and Oracle) experience partial outages. While tier-4 data centers maintain backup power for 48-72 hours, prolonged grid failure threatens service continuity for cloud computing workloads serving the entire US market.\n\nTexas produces 25% of US beef — cattle deaths in the Panhandle region during sub-zero temperatures are estimated at 50,000-100,000 head, with an estimated $2B loss to the livestock industry. Insurance claims flood the market: the Texas Windstorm Insurance Association faces $15B+ in claims, with reinsurance markets absorbing additional exposure. A critical second-order effect is the natural gas price cascade: as Texas demand for heating gas spikes while production wells freeze, gas prices triple across the interconnected US pipeline network."
+    },
+    "food_supply": {
+      "affected_countries": [
+        {
+          "iso3": "USA",
+          "food_security_impact": 5,
+          "population_at_risk": 10000000,
+          "primary_threats": ["cold chain breakdown", "livestock losses", "regional distribution disruption"],
+          "is_food_desert": false
+        }
+      ],
+      "supply_chain_disruptions": [
+        {
+          "from": [-101.83, 35.22],
+          "to": [-96.80, 32.78],
+          "product": "Beef cattle",
+          "severity": 7
+        },
+        {
+          "from": [-97.74, 30.27],
+          "to": [-87.63, 41.88],
+          "product": "Dairy products",
+          "severity": 5
+        }
+      ],
+      "narrative": "Texas feedlots — producing 25% of US beef — face catastrophic livestock losses as temperatures plunge to -15°C in the Panhandle. An estimated 50,000-100,000 cattle die from exposure, representing $2 billion in direct losses and triggering beef price increases of 10-15% nationally within two weeks.\n\nThe cold chain infrastructure breakdown is the most immediate food security threat: 10 million Texans lose access to refrigerated food storage as home power fails. Commercial cold storage facilities switch to backup generators, but diesel fuel shortages limit their operational window to 48-72 hours. Grocery store shelves empty within 24 hours as residents panic-buy; restocking is impossible with highway infrastructure compromised by ice.\n\nDairy operations in central Texas face immediate production losses as milking equipment requires electricity. Unpasteurized milk must be discarded within hours, and the cascading effect reaches dairy processors across the Midwest within one week. The regional food distribution hub in Dallas-Fort Worth, which serves 40 million consumers across the South Central US, operates at 20% capacity."
+    },
+    "infrastructure": {
+      "affected_countries": [
+        {
+          "iso3": "USA",
+          "infrastructure_risk": 9,
+          "systems_at_risk": ["power", "water", "telecom", "transport"],
+          "cascade_risk": 9
+        }
+      ],
+      "outage_zones": [
+        {
+          "coordinates": [-96.80, 32.78],
+          "radius_km": 120,
+          "type": "power",
+          "severity": 9,
+          "population_affected": 7500000
+        },
+        {
+          "coordinates": [-97.74, 30.27],
+          "radius_km": 100,
+          "type": "power",
+          "severity": 9,
+          "population_affected": 2200000
+        },
+        {
+          "coordinates": [-95.37, 29.76],
+          "radius_km": 80,
+          "type": "water",
+          "severity": 8,
+          "population_affected": 6700000
+        }
+      ],
+      "narrative": "The ERCOT grid failure represents the most dangerous cascade risk in this scenario. As an isolated grid with minimal interconnection to the Eastern and Western Interconnections, ERCOT cannot import emergency power from neighboring systems. Natural gas wellheads freeze as temperatures drop below design specifications, removing 30 GW of generation capacity — half the state's winter peak demand.\n\nThe cascade chain accelerates with lethal speed: power grid failure causes water treatment plants to lose pumping pressure within 2 hours, as treatment facilities require continuous electricity for chemical dosing and pressure maintenance. Pipe freezing begins within 6 hours at ambient temperatures below -10°C, causing burst mains across all three major metro areas. Telecom tower backup batteries exhaust within 4-8 hours, leaving 911 emergency services unreachable for millions.\n\nHospitals switch to emergency generators with 48-hour diesel fuel supplies, but resupply is impossible as roads ice over and fuel depots lose pumping power. The Houston Ship Channel infrastructure — pipelines, pumping stations, and port cranes — freezes solid, requiring 5-7 days of above-freezing temperatures before restart. The total infrastructure damage estimate exceeds $30 billion, with water system repairs alone projected at $10 billion."
+    },
+    "civilian_impact": {
+      "affected_countries": [
+        {
+          "iso3": "USA",
+          "humanitarian_score": 8,
+          "displaced_estimate": 1500000,
+          "health_risk": 8,
+          "vulnerable_groups": ["elderly living alone", "unhoused populations", "mobile home residents", "undocumented immigrants"]
+        }
+      ],
+      "displacement_flows": [
+        {
+          "from": [-96.80, 32.78],
+          "to": [-96.79, 32.95],
+          "estimated_people": 500000,
+          "urgency": "critical"
+        },
+        {
+          "from": [-97.74, 30.27],
+          "to": [-97.75, 30.45],
+          "estimated_people": 300000,
+          "urgency": "critical"
+        },
+        {
+          "from": [-95.37, 29.76],
+          "to": [-95.38, 29.95],
+          "estimated_people": 400000,
+          "urgency": "high"
+        }
+      ],
+      "narrative": "Fifteen million Texans lose heating during sub-zero temperatures, creating an immediate life-threatening emergency. The most vulnerable populations face the highest mortality risk: 27,000 unhoused individuals across Texas have no shelter access, elderly residents living alone (1.2 million Texans over 75) cannot call for help as telecom fails, and 2 million mobile home residents have inadequate insulation.\n\nHypothermia cases overwhelm emergency departments within 12 hours. Carbon monoxide poisoning spikes as residents use gas stoves, charcoal grills, and car engines for improvised heating — an estimated 500+ CO poisoning cases require immediate ICU-level care. Undocumented immigrants, estimated at 1.7 million in Texas, avoid official warming shelters for fear of immigration enforcement, creating a hidden mortality risk.\n\nDisplacement flows converge on urban warming centers: schools, convention centers, and churches. Dallas, Austin, and Houston each activate 50+ emergency shelters, but capacity is overwhelmed within hours. The most critical gap in humanitarian response is medical transport: icy roads prevent ambulance response times from meeting the 8-minute standard, with average response times exceeding 45 minutes in suburban areas."
+    }
+  },
+  "synthesis": {
+    "cascading_risk_chain": "Winter storm freezes natural gas wellheads → ERCOT grid collapse → water treatment plant shutdown → burst pipes → mass displacement to overwhelmed shelters → hypothermia and CO poisoning deaths",
+    "most_affected_population": "15 million Texas residents without heating including 27,000 unhoused individuals and 1.2 million elderly living alone who cannot call for help after telecom failure",
+    "second_order_effect": "Natural gas price tripling across the interconnected US pipeline network as Texas heating demand spikes while production wells simultaneously freeze, creating a nationwide energy cost crisis extending far beyond the storm zone",
+    "compound_risk_score": 73,
+    "narrative": "The cascading risk chain begins with the winter storm freezing natural gas wellheads, removing 30 GW from ERCOT — an isolated grid unable to import emergency power. Grid collapse triggers water treatment plant shutdowns within 2 hours, followed by pipe freezing and burst mains within 6 hours. Mass displacement overwhelms warming shelters as hypothermia and carbon monoxide poisoning cases surge.\n\nThe most affected population is the 15 million Texans without heating, with extreme vulnerability among 27,000 unhoused individuals, 1.2 million elderly living alone, and 2 million mobile home residents who face lethal cold exposure.\n\nThe critical second-order effect is a nationwide natural gas price cascade: as Texas demand spikes and production freezes simultaneously, prices triple across the interconnected US pipeline network, raising heating costs for 100+ million Americans outside the storm zone.\n\nThe compound risk score of 73 reflects high infrastructure (9) and civilian impact (8) scores with moderate economic disruption (7), producing a cascade multiplier of 1.2 that amplifies the weighted average across two high-severity domains."
+  }
 }

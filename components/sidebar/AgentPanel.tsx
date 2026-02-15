@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import ReactMarkdown from "react-markdown";
 import type { AgentName, AgentStatus } from "@/lib/types";
 import { AGENT_LABELS, AGENT_COLORS } from "./constants";
@@ -28,7 +29,7 @@ function StatusIndicator({ status }: { status: AgentStatus }) {
   }
 }
 
-export default function AgentPanel({
+const AgentPanel = React.memo(function AgentPanel({
   agentName,
   streamingText,
   status,
@@ -58,4 +59,6 @@ export default function AgentPanel({
       </div>
     </div>
   );
-}
+});
+
+export default AgentPanel;

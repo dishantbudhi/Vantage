@@ -4,14 +4,20 @@
  * One-time script to convert raw data files into the JSON formats
  * expected by lib/data/loader.ts. Run with: npx tsx scripts/preload-data.ts
  *
- * Raw sources (committed to repo):
- *   - lib/data/ne_110m_admin_0_countries.geojson  (Natural Earth 110m)
- *   - lib/data/INFORM_Risk_Mid_2025_v071.xlsx     (INFORM Risk Index)
- *   - lib/data/global_power_plant_database.csv     (WRI power plants)
+ * NOTE: The raw source files have been removed from the repo after processing
+ * to reduce repo size (~16MB saved). The output JSON files are the canonical
+ * data source and are committed to the repo:
+ *   - lib/data/countries.json         (from Natural Earth 110m GeoJSON)
+ *   - public/countries.geojson        (client-side copy)
+ *   - lib/data/risk-index.json        (from INFORM Risk Index Excel)
+ *   - lib/data/power-plants.json      (from WRI Global Power Plant CSV)
+ *   - lib/data/economic-indicators.json (from World Bank API)
+ *   - lib/data/displacement.json      (from UNHCR API)
  *
- * Live API sources (fetched at script time):
- *   - World Bank API v2  -> economic-indicators.json
- *   - UNHCR API          -> displacement.json
+ * To re-run this script, you would need to re-download the raw source files:
+ *   - ne_110m_admin_0_countries.geojson  (Natural Earth 110m)
+ *   - INFORM_Risk_Mid_2025_v071.xlsx     (INFORM Risk Index)
+ *   - global_power_plant_database.csv     (WRI power plants)
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";

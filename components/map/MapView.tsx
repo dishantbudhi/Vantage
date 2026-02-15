@@ -47,11 +47,9 @@ export default function MapView({
 }: MapViewProps) {
   const mapRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const pulsingRadiusRef = useRef(1);
   const [pulsingRadius, setPulsingRadius] = useState(1);
   // Guard: defer DeckGL render until container has non-zero dimensions.
-  // luma.gl v9 crashes with "Cannot read properties of undefined
-  // (reading 'maxTextureDimension2D')" when the WebGL canvas is created
-  // inside a 0×0 container because device.limits is never populated.
   const [ready, setReady] = useState(false);
 
   // Wait for the container to have layout dimensions before mounting DeckGL
@@ -65,28 +63,34 @@ export default function MapView({
       }
     };
 
-    // Immediate check (container may already have size)
     check();
 
     if (!ready) {
-      // Fallback: observe resize events until we get a valid size
       const ro = new ResizeObserver(() => check());
       ro.observe(el);
       return () => ro.disconnect();
     }
   }, [ready]);
 
-  // Pulsing animation for conflict zones
+  // Pulsing animation for conflict zones — throttled to ~15fps to avoid
+  // rebuilding all layers at 60fps. Only updates state every ~66ms.
   useEffect(() => {
     let animationFrame: number;
-    const animate = () => {
-      setPulsingRadius((prev) => {
-        const next = prev + 0.02;
-        return next > 1.2 ? 0.8 : next;
-      });
+    let lastUpdate = 0;
+    const THROTTLE_MS = 66; // ~15fps
+
+    const animate = (timestamp: number) => {
+      pulsingRadiusRef.current += 0.02;
+      if (pulsingRadiusRef.current > 1.2) pulsingRadiusRef.current = 0.8;
+
+      if (timestamp - lastUpdate >= THROTTLE_MS) {
+        setPulsingRadius(pulsingRadiusRef.current);
+        lastUpdate = timestamp;
+      }
+
       animationFrame = requestAnimationFrame(animate);
     };
-    animate();
+    animationFrame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrame);
   }, []);
 
@@ -106,21 +110,14 @@ export default function MapView({
     [onCountryClick]
   );
 
-  const layers = useMemo(() => {
+  // Stable layers that do NOT depend on pulsingRadius — avoid rebuilding
+  // choropleth, food desert, infra, trade arcs, displacement, heatmap at 15fps.
+  const stableLayers = useMemo(() => {
     const deckLayers: any[] = [];
 
     if (layerToggles.choropleth && countriesGeoJSON) {
       deckLayers.push(
         createChoroplethLayer(countriesGeoJSON, agentResults, selectedCountry)
-      );
-    }
-
-    if (layerToggles.conflict && agentResults.geopolitics) {
-      deckLayers.push(
-        createConflictLayer(
-          agentResults.geopolitics as GeopoliticsOutput,
-          pulsingRadius
-        )
       );
     }
 
@@ -170,13 +167,25 @@ export default function MapView({
     }
 
     return deckLayers;
-  }, [
-    layerToggles,
-    agentResults,
-    selectedCountry,
-    countriesGeoJSON,
-    pulsingRadius,
-  ]);
+  }, [layerToggles, agentResults, selectedCountry, countriesGeoJSON]);
+
+  // Conflict layer depends on pulsingRadius — separate memo so only this
+  // layer rebuilds on animation ticks.
+  const conflictLayer = useMemo(() => {
+    if (layerToggles.conflict && agentResults.geopolitics) {
+      return createConflictLayer(
+        agentResults.geopolitics as GeopoliticsOutput,
+        pulsingRadius
+      );
+    }
+    return null;
+  }, [layerToggles.conflict, agentResults.geopolitics, pulsingRadius]);
+
+  const allLayers = useMemo(() => {
+    const result = [...stableLayers];
+    if (conflictLayer) result.push(conflictLayer);
+    return result;
+  }, [stableLayers, conflictLayer]);
 
   return (
     <div className="relative w-full h-full" ref={containerRef}>
@@ -184,7 +193,7 @@ export default function MapView({
         <DeckGL
           viewState={viewState}
           controller={true}
-          layers={layers}
+          layers={allLayers}
           onClick={onClick}
           onViewStateChange={({ viewState: newViewState }) =>
             onViewStateChange(newViewState as ViewState)

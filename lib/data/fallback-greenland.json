@@ -1,14 +1,333 @@
 {
   "scenario": "Accelerated Greenland ice sheet collapse",
-  "description": "Placeholder for Greenland ice sheet collapse golden path scenario - to be populated after running end-to-end tests",
-  "orchestrator": null,
-  "agentResults": {
-    "geopolitics": null,
-    "economy": null,
-    "food_supply": null,
-    "infrastructure": null,
-    "civilian_impact": null
+  "orchestrator": {
+    "scenario_summary": "Accelerated collapse of the Greenland ice sheet causes a 2-meter global sea level rise over the coming decade, threatening coastal populations, infrastructure, and economies worldwide.",
+    "primary_regions": ["GRL", "NLD", "BGD", "MDV", "TUV"],
+    "secondary_regions": ["USA", "GBR", "DEU", "IND", "CHN", "JPN", "VNM"],
+    "coordinates": { "lat": 52.0, "lon": 5.0 },
+    "zoom_level": 3,
+    "time_horizon": "years",
+    "severity": 10,
+    "event_categories": ["climate", "geopolitical", "economic"],
+    "context_queries": {
+      "geopolitics": "Greenland ice sheet collapse Arctic territorial disputes climate refugees 2026",
+      "economy": "sea level rise coastal property values insurance market collapse 2026",
+      "food": "sea level rise saltwater intrusion agriculture Bangladesh Mekong Delta 2026",
+      "infrastructure": "sea level rise port relocation submarine cables nuclear plants 2026",
+      "civilian": "2 meter sea level rise displacement small island states climate migration 2026"
+    }
   },
-  "synthesis": null,
-  "notes": "This file will be populated with actual agent responses after running the golden path scenario"
+  "agentResults": {
+    "geopolitics": {
+      "affected_countries": [
+        {
+          "iso3": "NLD",
+          "impact_score": 9,
+          "stance": "allied",
+          "key_concerns": ["60% of country below sea level faces existential flooding", "EU solidarity and burden-sharing for adaptation"],
+          "alliance_impacts": ["EU Climate Emergency Fund activation", "NATO infrastructure protection mandates"]
+        },
+        {
+          "iso3": "BGD",
+          "impact_score": 10,
+          "stance": "destabilized",
+          "key_concerns": ["40 million displaced from coastal regions", "Cross-border migration pressure on India and Myanmar"],
+          "alliance_impacts": ["SAARC emergency protocols", "UN climate refugee treaty negotiations"]
+        },
+        {
+          "iso3": "MDV",
+          "impact_score": 10,
+          "stance": "destabilized",
+          "key_concerns": ["Entire nation becomes uninhabitable", "Sovereignty and statehood questions for submerged nations"],
+          "alliance_impacts": ["Alliance of Small Island States (AOSIS) emergency declaration", "Climate reparations demands at UN General Assembly"]
+        },
+        {
+          "iso3": "USA",
+          "impact_score": 7,
+          "stance": "allied",
+          "key_concerns": ["Miami, New York, Houston coastal flooding", "Military base relocations"],
+          "alliance_impacts": ["Paris Agreement emergency provisions", "G7 climate adaptation funding"]
+        },
+        {
+          "iso3": "CHN",
+          "impact_score": 7,
+          "stance": "neutral",
+          "key_concerns": ["Shanghai, Guangzhou, Tianjin coastal flooding", "Arctic shipping route competition"],
+          "alliance_impacts": ["BRICS climate reparations demands", "South China Sea territorial recalculation"]
+        }
+      ],
+      "conflict_zones": [
+        {
+          "coordinates": [0.0, 85.0],
+          "radius_km": 500,
+          "intensity": 6,
+          "type": "tension"
+        },
+        {
+          "coordinates": [114.0, 12.0],
+          "radius_km": 300,
+          "intensity": 7,
+          "type": "tension"
+        },
+        {
+          "coordinates": [90.41, 23.81],
+          "radius_km": 200,
+          "intensity": 8,
+          "type": "diplomatic_crisis"
+        }
+      ],
+      "narrative": "The Greenland ice sheet collapse triggers the most consequential geopolitical restructuring since World War II. The Netherlands faces an existential crisis: 60% of the country lies below the new sea level, requiring either a $300 billion seawall expansion or partial national evacuation. The EU activates unprecedented solidarity mechanisms, with climate adaptation becoming the bloc's top fiscal priority.\n\nBangladesh's displacement of 40 million coastal residents creates the largest refugee crisis in human history, overwhelming India's border states of West Bengal and Assam. India constructs barriers along the border, creating a humanitarian and diplomatic crisis within SAARC. The Maldives, Tuvalu, and Marshall Islands face total national submersion — raising unprecedented questions of statehood and sovereignty for nations whose territory no longer exists above water.\n\nArctic geopolitics intensify as newly ice-free shipping routes become contested territory. Russia, Canada, Denmark (via Greenland), and Norway compete for territorial claims, with China asserting near-Arctic state status. The UN Security Council debates a climate refugee treaty, but vetoes from permanent members block binding resolutions. BRICS nations demand $10 trillion in climate reparations from historical emitters, fracturing North-South diplomatic relations."
+    },
+    "economy": {
+      "affected_countries": [
+        {
+          "iso3": "NLD",
+          "gdp_impact_pct": -15.0,
+          "trade_disruption": 9,
+          "key_sectors": ["finance", "agriculture", "shipping", "manufacturing"],
+          "unemployment_risk": "severe"
+        },
+        {
+          "iso3": "BGD",
+          "gdp_impact_pct": -25.0,
+          "trade_disruption": 9,
+          "key_sectors": ["agriculture", "manufacturing", "shipping"],
+          "unemployment_risk": "severe"
+        },
+        {
+          "iso3": "MDV",
+          "gdp_impact_pct": -80.0,
+          "trade_disruption": 10,
+          "key_sectors": ["tourism", "fishing"],
+          "unemployment_risk": "severe"
+        },
+        {
+          "iso3": "USA",
+          "gdp_impact_pct": -3.0,
+          "trade_disruption": 6,
+          "key_sectors": ["real estate", "insurance", "energy", "tourism"],
+          "unemployment_risk": "medium"
+        },
+        {
+          "iso3": "CHN",
+          "gdp_impact_pct": -4.0,
+          "trade_disruption": 7,
+          "key_sectors": ["manufacturing", "shipping", "real estate", "finance"],
+          "unemployment_risk": "medium"
+        }
+      ],
+      "trade_routes_disrupted": [
+        {
+          "from": [4.48, 51.92],
+          "to": [-73.94, 40.67],
+          "commodity": "Manufactured goods",
+          "severity": 9
+        },
+        {
+          "from": [121.47, 31.23],
+          "to": [4.48, 51.92],
+          "commodity": "Electronics",
+          "severity": 8
+        },
+        {
+          "from": [90.41, 23.81],
+          "to": [103.85, 1.29],
+          "commodity": "Garments",
+          "severity": 9
+        }
+      ],
+      "narrative": "The economic impact exceeds $10 trillion globally over the coming decade. The insurance and reinsurance market faces systemic collapse as coastal property losses overwhelm reserves — Lloyd's of London estimates total exposure at $3 trillion, exceeding the entire global reinsurance capacity. Property markets in Miami, Amsterdam, Shanghai, Mumbai, and Jakarta crater as mortgage-backed securities on coastal real estate become worthless.\n\nThe Netherlands, home to Europe's largest port (Rotterdam), faces GDP contraction of 15% as port infrastructure requires complete relocation. Bangladesh loses 17% of its land area, devastating the garment industry that employs 4 million workers and generates $40 billion in annual exports. The Maldives experiences total economic collapse — tourism revenue ($4.7B/year) drops to zero as resort islands submerge.\n\nGlobal shipping requires massive port infrastructure relocation. Every major coastal port worldwide needs either elevation or relocation, estimated at $2 trillion in total. The US faces particular exposure: Miami, New York, Houston, and New Orleans together represent 25% of US GDP and require $500 billion in flood protection. A cascading financial crisis emerges as coastal commercial real estate — worth $12 trillion globally — is repriced to near-zero value."
+    },
+    "food_supply": {
+      "affected_countries": [
+        {
+          "iso3": "BGD",
+          "food_security_impact": 10,
+          "population_at_risk": 80000000,
+          "primary_threats": ["saltwater intrusion into farmland", "loss of 30% arable land"],
+          "is_food_desert": true
+        },
+        {
+          "iso3": "VNM",
+          "food_security_impact": 9,
+          "population_at_risk": 20000000,
+          "primary_threats": ["Mekong Delta rice production collapse", "saltwater intrusion"],
+          "is_food_desert": true
+        },
+        {
+          "iso3": "MDV",
+          "food_security_impact": 10,
+          "population_at_risk": 540000,
+          "primary_threats": ["total agricultural land loss", "freshwater lens contamination"],
+          "is_food_desert": true
+        },
+        {
+          "iso3": "NLD",
+          "food_security_impact": 7,
+          "population_at_risk": 5000000,
+          "primary_threats": ["agricultural land flooding", "dairy industry collapse"],
+          "is_food_desert": false
+        }
+      ],
+      "supply_chain_disruptions": [
+        {
+          "from": [90.41, 23.81],
+          "to": [88.36, 22.57],
+          "product": "Rice",
+          "severity": 10
+        },
+        {
+          "from": [106.63, 10.82],
+          "to": [103.85, 1.29],
+          "product": "Rice",
+          "severity": 9
+        },
+        {
+          "from": [4.48, 51.92],
+          "to": [13.40, 52.52],
+          "product": "Dairy",
+          "severity": 7
+        }
+      ],
+      "narrative": "Bangladesh loses 30% of its arable land to saltwater intrusion, devastating rice production that feeds 170 million people. Eighty million Bangladeshis face severe food insecurity as the country's agricultural heartland in the delta region becomes permanently contaminated with seawater. Freshwater aquifers along the coast salinize, destroying drinking water sources for 50 million people.\n\nVietnam's Mekong Delta — producing 50% of the country's rice and 90% of its rice exports (20 million tons annually) — collapses as saltwater penetrates 80km inland. This removes a critical food source for Southeast Asia and drives global rice prices up 50-100%. Combined with Bangladesh's losses, 30% of global rice production is at risk.\n\nThe Netherlands, one of the world's largest agricultural exporters ($100B annually), loses its dairy and greenhouse horticulture industries as polders flood. Global food prices spike 50-100% across all major commodities as supply contracts simultaneously from multiple breadbasket regions. The World Food Programme estimates 500 million additional people face food insecurity globally, requiring $50 billion annually in emergency food assistance."
+    },
+    "infrastructure": {
+      "affected_countries": [
+        {
+          "iso3": "NLD",
+          "infrastructure_risk": 9,
+          "systems_at_risk": ["water", "transport", "power", "digital"],
+          "cascade_risk": 8
+        },
+        {
+          "iso3": "BGD",
+          "infrastructure_risk": 9,
+          "systems_at_risk": ["water", "transport", "telecom", "power"],
+          "cascade_risk": 9
+        },
+        {
+          "iso3": "USA",
+          "infrastructure_risk": 7,
+          "systems_at_risk": ["transport", "power", "digital"],
+          "cascade_risk": 6
+        },
+        {
+          "iso3": "GBR",
+          "infrastructure_risk": 6,
+          "systems_at_risk": ["transport", "power", "digital"],
+          "cascade_risk": 5
+        }
+      ],
+      "outage_zones": [
+        {
+          "coordinates": [4.48, 51.92],
+          "radius_km": 150,
+          "type": "transport",
+          "severity": 9,
+          "population_affected": 8000000
+        },
+        {
+          "coordinates": [90.41, 23.81],
+          "radius_km": 100,
+          "type": "water",
+          "severity": 10,
+          "population_affected": 22000000
+        },
+        {
+          "coordinates": [-80.19, 25.76],
+          "radius_km": 80,
+          "type": "power",
+          "severity": 7,
+          "population_affected": 6000000
+        },
+        {
+          "coordinates": [121.47, 31.23],
+          "radius_km": 120,
+          "type": "transport",
+          "severity": 8,
+          "population_affected": 26000000
+        }
+      ],
+      "narrative": "Port cities worldwide face the most consequential infrastructure challenge in human history. Rotterdam, the world's 10th-largest port handling 14.5 million TEU annually, requires either a $100 billion seawall expansion or complete relocation — a process taking 15-20 years. Every major coastal port worldwide needs similar investment.\n\nSubmarine cable landing stations are critically vulnerable: 95% of global internet traffic transits undersea cables, and 80% of landing stations are in coastal zones below the 2-meter flood line. Landing stations in Cornwall (UK), Long Island (US), and Singapore require emergency elevation or relocation. Failure to protect these creates cascading digital infrastructure collapse.\n\nNuclear power plants in coastal locations face mandatory decommissioning: Hinkley Point (UK), Indian Point (US), and Tarapur (India) cannot operate with compromised cooling water intakes. This removes 50+ GW of baseload generation capacity globally, requiring emergency replacement with alternative sources. Dhaka faces complete water infrastructure failure as the Buriganga River system backs up with saltwater, contaminating the city's water supply for 22 million residents."
+    },
+    "civilian_impact": {
+      "affected_countries": [
+        {
+          "iso3": "BGD",
+          "humanitarian_score": 10,
+          "displaced_estimate": 40000000,
+          "health_risk": 10,
+          "vulnerable_groups": ["coastal farmers", "garment workers", "children", "Rohingya refugees"]
+        },
+        {
+          "iso3": "MDV",
+          "humanitarian_score": 10,
+          "displaced_estimate": 540000,
+          "health_risk": 9,
+          "vulnerable_groups": ["entire population", "resort workers", "fishermen"]
+        },
+        {
+          "iso3": "NLD",
+          "humanitarian_score": 7,
+          "displaced_estimate": 4000000,
+          "health_risk": 5,
+          "vulnerable_groups": ["elderly", "disabled", "low-income residents in flood zones"]
+        },
+        {
+          "iso3": "USA",
+          "humanitarian_score": 6,
+          "displaced_estimate": 13000000,
+          "health_risk": 5,
+          "vulnerable_groups": ["low-income coastal residents", "elderly", "communities of color in flood zones"]
+        },
+        {
+          "iso3": "IND",
+          "humanitarian_score": 8,
+          "displaced_estimate": 20000000,
+          "health_risk": 8,
+          "vulnerable_groups": ["Mumbai slum residents", "West Bengal coastal communities", "fishing communities"]
+        }
+      ],
+      "displacement_flows": [
+        {
+          "from": [90.41, 23.81],
+          "to": [88.36, 22.57],
+          "estimated_people": 20000000,
+          "urgency": "high"
+        },
+        {
+          "from": [73.51, 4.18],
+          "to": [79.86, 6.93],
+          "estimated_people": 300000,
+          "urgency": "critical"
+        },
+        {
+          "from": [4.48, 51.92],
+          "to": [5.47, 51.44],
+          "estimated_people": 2000000,
+          "urgency": "medium"
+        },
+        {
+          "from": [72.88, 19.08],
+          "to": [73.86, 18.52],
+          "estimated_people": 10000000,
+          "urgency": "high"
+        },
+        {
+          "from": [-80.19, 25.76],
+          "to": [-81.38, 28.54],
+          "estimated_people": 4000000,
+          "urgency": "medium"
+        }
+      ],
+      "narrative": "This scenario triggers the largest displacement event in human history: 200+ million people displaced globally over 5-10 years. Bangladesh faces the most acute crisis — 40 million coastal residents must relocate inland toward Dhaka, a city of 22 million already at capacity. The resulting demographic pressure creates the world's largest urban humanitarian emergency.\n\nThe entire populations of the Maldives (540,000), Tuvalu (12,000), and Marshall Islands (60,000) require international relocation. New Zealand and Australia negotiate receiving agreements, but housing and integration capacity is limited to 50,000 per year — meaning complete evacuation takes a decade.\n\nIn the United States, 13 million residents in Miami, coastal New York, Houston, and New Orleans face mandatory relocation. Low-income communities and communities of color in these cities face disproportionate impact, as they lack resources for self-directed relocation. Mumbai's 6 million slum residents in low-lying areas face the most immediate danger — informal settlements have zero flood resilience.\n\nThe most critical gap in humanitarian response is housing: global construction capacity cannot produce housing for 200 million displaced people within the required timeframe. UNHCR estimates a $200 billion annual funding gap for climate refugee resettlement."
+    }
+  },
+  "synthesis": {
+    "cascading_risk_chain": "Greenland ice sheet collapse → 2m sea level rise → simultaneous coastal flooding across 6 continents → global port infrastructure failure → insurance market collapse → sovereign debt crises in affected nations → 200M+ displaced",
+    "most_affected_population": "40 million coastal residents of Bangladesh's delta region facing permanent displacement as 30% of national territory submerges and freshwater aquifers salinize",
+    "second_order_effect": "The systemic collapse of the global property insurance market as $12 trillion in coastal real estate simultaneously reprices to near-zero, triggering a financial crisis comparable to 2008 but with no recovery pathway since the underlying assets are permanently destroyed",
+    "compound_risk_score": 100,
+    "narrative": "The cascading risk chain is unprecedented in scale: Greenland ice sheet collapse causes 2-meter sea level rise, simultaneously flooding coastal zones across six continents. Global port infrastructure fails as Rotterdam, Shanghai, Singapore, and Mumbai require $2 trillion+ in relocation. The insurance market collapses as $12 trillion in coastal property becomes worthless, triggering sovereign debt crises across affected nations.\n\nThe most affected population is Bangladesh's 40 million coastal delta residents facing permanent displacement as 30% of national territory submerges and freshwater aquifers salinize, creating the largest refugee crisis in human history.\n\nThe critical second-order effect is systemic insurance market collapse: unlike natural disasters where properties can be rebuilt, permanent sea level rise destroys the value of coastal real estate irrecoverably, creating a financial crisis with no recovery pathway that spreads through mortgage-backed securities and sovereign debt markets globally.\n\nThe compound risk score of 100 reflects the maximum possible severity: all five domains score 7+ (geopolitics: 10, economy: 10, food: 10, infrastructure: 9, civilian: 10), producing a cascade multiplier of 1.4. This is a civilization-level threat affecting every major economic, humanitarian, and infrastructure system simultaneously."
+  }
 }

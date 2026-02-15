@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, useRef } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 import type {
   AgentName,
   AgentStatus,
@@ -65,11 +65,57 @@ export function useAnalysis(): UseAnalysisReturn {
 
   const abortControllerRef = useRef<AbortController | null>(null);
 
+  // Chunk buffering: accumulate agent text chunks in a ref and flush at intervals
+  // to reduce re-renders from ~100+/sec (per token) to ~10-20/sec.
+  const chunkBufferRef = useRef<Record<string, string>>({});
+  const flushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const FLUSH_INTERVAL_MS = 80;
+
+  const flushChunkBuffer = useCallback(() => {
+    const buffer = chunkBufferRef.current;
+    const keys = Object.keys(buffer);
+    if (keys.length === 0) return;
+
+    setAgentTexts((prev) => {
+      const next = { ...prev };
+      for (const key of keys) {
+        const typedKey = key as AgentName;
+        next[typedKey] = (prev[typedKey] || "") + buffer[key];
+      }
+      return next;
+    });
+
+    chunkBufferRef.current = {};
+  }, []);
+
+  const scheduleFlush = useCallback(() => {
+    if (flushTimerRef.current) return;
+    flushTimerRef.current = setTimeout(() => {
+      flushTimerRef.current = null;
+      flushChunkBuffer();
+    }, FLUSH_INTERVAL_MS);
+  }, [flushChunkBuffer]);
+
+  // Clean up flush timer on unmount
+  useEffect(() => {
+    return () => {
+      if (flushTimerRef.current) {
+        clearTimeout(flushTimerRef.current);
+        flushTimerRef.current = null;
+      }
+    };
+  }, []);
+
   const reset = useCallback(() => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
     }
+    if (flushTimerRef.current) {
+      clearTimeout(flushTimerRef.current);
+      flushTimerRef.current = null;
+    }
+    chunkBufferRef.current = {};
     setStatus("idle");
     setScenario(null);
     setOrchestratorOutput(null);
@@ -148,10 +194,10 @@ export function useAnalysis(): UseAnalysisReturn {
                   const { agent, chunk } = data;
                   if (agent && chunk && AGENTS.includes(agent)) {
                     const typedAgent = agent as AgentName;
-                    setAgentTexts((prev) => ({
-                      ...prev,
-                      [typedAgent]: (prev[typedAgent] || "") + chunk,
-                    }));
+                    // Buffer chunks and flush at intervals to reduce re-renders
+                    chunkBufferRef.current[typedAgent] =
+                      (chunkBufferRef.current[typedAgent] || "") + chunk;
+                    scheduleFlush();
                     setAgentStatuses((prev) => {
                       if (prev[typedAgent] === "streaming") return prev;
                       return { ...prev, [typedAgent]: "streaming" };
@@ -240,6 +286,8 @@ export function useAnalysis(): UseAnalysisReturn {
           }
         }
       }
+      // Flush any remaining buffered chunks
+      flushChunkBuffer();
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {
         return;

@@ -1,8 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-// Check if we can import providers. They depend on process.env.
-// We'll mock process.env before importing.
-
 describe("Providers", () => {
     beforeEach(() => {
         vi.resetModules();
@@ -10,13 +7,18 @@ describe("Providers", () => {
         process.env.MINIMAX_API_KEY = "mock-minimax-key";
     });
 
-    it("should export openai and minimax instances", async () => {
+    it("should export openai and minimax as callable functions", async () => {
         const { openai, minimax } = await import("@/lib/agents/providers");
-        expect(openai).toBeDefined();
-        expect(minimax).toBeDefined();
+        expect(typeof openai).toBe("function");
+        expect(typeof minimax).toBe("function");
     });
 
-    // We can't easily test if they are configured correctly without making a call, 
-    // but we can check if they throw on import if keys are missing (optional behavior).
-    // Or just check that they are objects/functions.
+    it("should not throw at import time even without API keys", async () => {
+        delete process.env.OPENAI_API_KEY;
+        delete process.env.MINIMAX_API_KEY;
+        // Import should not throw — keys are checked lazily
+        const mod = await import("@/lib/agents/providers");
+        expect(mod.openai).toBeDefined();
+        expect(mod.minimax).toBeDefined();
+    });
 });

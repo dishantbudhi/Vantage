@@ -1,14 +1,300 @@
 {
   "scenario": "Suez Canal blocked + South Asian heat wave",
-  "description": "Placeholder for Suez Canal golden path scenario - to be populated after running end-to-end tests",
-  "orchestrator": null,
-  "agentResults": {
-    "geopolitics": null,
-    "economy": null,
-    "food_supply": null,
-    "infrastructure": null,
-    "civilian_impact": null
+  "orchestrator": {
+    "scenario_summary": "A major blockage of the Suez Canal coincides with an extreme heat wave across South Asia, disrupting global trade routes while straining energy and water infrastructure in India, Pakistan, and Bangladesh.",
+    "primary_regions": ["EGY", "IND", "PAK", "BGD"],
+    "secondary_regions": ["SAU", "ARE", "CHN", "DEU", "NLD", "GBR", "ITA"],
+    "coordinates": { "lat": 30.01, "lon": 32.37 },
+    "zoom_level": 4,
+    "time_horizon": "weeks",
+    "severity": 8,
+    "event_categories": ["geopolitical", "climate", "economic"],
+    "context_queries": {
+      "geopolitics": "Suez Canal blockage Egypt diplomatic tensions 2026",
+      "economy": "Suez Canal shipping disruption oil prices global trade 2026",
+      "food": "South Asia heat wave food security wheat imports 2026",
+      "infrastructure": "South Asia power grid heat wave electricity demand 2026",
+      "civilian": "South Asia extreme heat displacement vulnerable populations 2026"
+    }
   },
-  "synthesis": null,
-  "notes": "This file will be populated with actual agent responses after running the golden path scenario"
+  "agentResults": {
+    "geopolitics": {
+      "affected_countries": [
+        {
+          "iso3": "EGY",
+          "impact_score": 8,
+          "stance": "allied",
+          "key_concerns": ["Canal revenue loss of $8B/year", "Diplomatic pressure from EU and US to clear blockage"],
+          "alliance_impacts": ["NATO logistics disrupted", "EU energy supply chain threatened"]
+        },
+        {
+          "iso3": "IND",
+          "impact_score": 7,
+          "stance": "destabilized",
+          "key_concerns": ["Resource competition with Pakistan during heat crisis", "Oil import dependency via Suez route"],
+          "alliance_impacts": ["BRICS coordination on alternative shipping", "Quad alliance energy security discussions"]
+        },
+        {
+          "iso3": "PAK",
+          "impact_score": 7,
+          "stance": "destabilized",
+          "key_concerns": ["Water scarcity exacerbated by heat wave", "LNG import disruption via Suez"],
+          "alliance_impacts": ["China-Pakistan Economic Corridor activation", "IMF emergency assistance requests"]
+        },
+        {
+          "iso3": "SAU",
+          "impact_score": 6,
+          "stance": "neutral",
+          "key_concerns": ["Oil export rerouting via Cape of Good Hope", "Gulf shipping alternative capacity"],
+          "alliance_impacts": ["OPEC coordination on supply management", "Saudi-Iran tensions over Gulf routes"]
+        }
+      ],
+      "conflict_zones": [
+        {
+          "coordinates": [32.37, 30.01],
+          "radius_km": 50,
+          "intensity": 8,
+          "type": "diplomatic_crisis"
+        },
+        {
+          "coordinates": [56.27, 26.57],
+          "radius_km": 80,
+          "intensity": 6,
+          "type": "tension"
+        }
+      ],
+      "narrative": "The simultaneous Suez Canal blockage and South Asian heat wave creates a compounding geopolitical crisis. Egypt faces enormous diplomatic pressure from the EU and US as canal transit fees worth $8 billion annually evaporate while European energy imports are rerouted. NATO logistics chains are severely disrupted, with Turkey and Greece competing to offer alternative Mediterranean routing.\n\nIn South Asia, the heat wave exacerbates existing India-Pakistan tensions as both nations compete for dwindling water resources along the Indus Basin. India's oil imports, 70% of which transit the Suez Canal, face critical delays driving domestic fuel prices upward. Pakistan, already economically fragile, sees its LNG imports halted, forcing emergency power rationing.\n\nSaudi Arabia and the UAE activate Gulf shipping alternatives, but the Strait of Hormuz becomes a secondary bottleneck as traffic increases 40%. BRICS nations coordinate on alternative trade routes, with China accelerating Belt and Road overland corridors. The most likely escalation pathway runs through energy: if the blockage persists beyond two weeks, European natural gas reserves will trigger emergency procurement from Russia, undermining Western sanctions and reshaping the post-2022 energy security architecture."
+    },
+    "economy": {
+      "affected_countries": [
+        {
+          "iso3": "EGY",
+          "gdp_impact_pct": -2.1,
+          "trade_disruption": 9,
+          "key_sectors": ["energy", "tourism", "shipping"],
+          "unemployment_risk": "high"
+        },
+        {
+          "iso3": "IND",
+          "gdp_impact_pct": -1.2,
+          "trade_disruption": 7,
+          "key_sectors": ["energy", "manufacturing", "agriculture"],
+          "unemployment_risk": "medium"
+        },
+        {
+          "iso3": "DEU",
+          "gdp_impact_pct": -0.8,
+          "trade_disruption": 6,
+          "key_sectors": ["manufacturing", "energy", "finance"],
+          "unemployment_risk": "low"
+        },
+        {
+          "iso3": "CHN",
+          "gdp_impact_pct": -0.5,
+          "trade_disruption": 5,
+          "key_sectors": ["manufacturing", "tech", "shipping"],
+          "unemployment_risk": "low"
+        }
+      ],
+      "trade_routes_disrupted": [
+        {
+          "from": [39.1, 21.5],
+          "to": [4.48, 51.92],
+          "commodity": "Crude oil",
+          "severity": 9
+        },
+        {
+          "from": [56.27, 26.57],
+          "to": [72.88, 19.08],
+          "commodity": "LNG",
+          "severity": 8
+        },
+        {
+          "from": [121.47, 31.23],
+          "to": [4.48, 51.92],
+          "commodity": "Manufactured goods",
+          "severity": 7
+        },
+        {
+          "from": [103.85, 1.29],
+          "to": [-95.36, 29.76],
+          "commodity": "Electronics",
+          "severity": 6
+        }
+      ],
+      "narrative": "The Suez Canal blockage triggers the single largest disruption to global maritime trade since 2021. Approximately 12% of global trade and 30% of container shipping transits this corridor daily, representing $9.6 billion in goods. Oil prices spike 18-25% within the first week as Persian Gulf exports to Europe add 10 days via the Cape of Good Hope reroute, with shipping costs increasing $1 million per vessel per trip.\n\nEgypt's economy takes the most direct hit: canal transit fees ($8B/year) evaporate immediately, and the tourism sector along the Red Sea coast suffers secondary effects. India faces a dual shock — oil import costs surge 20% while the heat wave simultaneously reduces agricultural output by an estimated 15% in affected states.\n\nGermany and the EU face a manufacturing slowdown as just-in-time supply chains for automotive and industrial components break down. Container shipping rates from Asia to Europe triple within days. A non-obvious second-order effect emerges in the insurance market: Lloyd's of London estimates reinsurance exposure exceeding $50B, potentially triggering premium spikes across all global maritime coverage that persist well beyond the blockage itself."
+    },
+    "food_supply": {
+      "affected_countries": [
+        {
+          "iso3": "EGY",
+          "food_security_impact": 8,
+          "population_at_risk": 40000000,
+          "primary_threats": ["wheat import disruption", "price spikes"],
+          "is_food_desert": false
+        },
+        {
+          "iso3": "YEM",
+          "food_security_impact": 9,
+          "population_at_risk": 21000000,
+          "primary_threats": ["total import dependency", "supply chain collapse"],
+          "is_food_desert": true
+        },
+        {
+          "iso3": "SDN",
+          "food_security_impact": 8,
+          "population_at_risk": 18000000,
+          "primary_threats": ["grain supply disruption", "conflict-compounded shortages"],
+          "is_food_desert": true
+        },
+        {
+          "iso3": "ETH",
+          "food_security_impact": 7,
+          "population_at_risk": 15000000,
+          "primary_threats": ["wheat import delays", "fertilizer shortage"],
+          "is_food_desert": false
+        },
+        {
+          "iso3": "IND",
+          "food_security_impact": 6,
+          "population_at_risk": 50000000,
+          "primary_threats": ["heat wave crop damage", "cold chain breakdown"],
+          "is_food_desert": false
+        }
+      ],
+      "supply_chain_disruptions": [
+        {
+          "from": [30.73, 46.48],
+          "to": [43.14, 11.59],
+          "product": "Wheat",
+          "severity": 9
+        },
+        {
+          "from": [30.73, 46.48],
+          "to": [32.37, 30.01],
+          "product": "Wheat",
+          "severity": 8
+        },
+        {
+          "from": [80.27, 13.08],
+          "to": [79.86, 6.93],
+          "product": "Rice",
+          "severity": 6
+        }
+      ],
+      "narrative": "Yemen faces the most acute food security crisis, with 90% of its food imported and the Suez blockage severing its primary supply corridor. An estimated 21 million Yemenis — 70% of the population — face severe food insecurity within two weeks as grain shipments from the Black Sea region via the Red Sea halt entirely.\n\nEgypt, which imports 60% of its wheat, sees bread prices spike 40% within days. Government subsidized bread programs face supply shortfalls that could trigger social unrest reminiscent of the 2011 Arab Spring. Sudan and Ethiopia, already dealing with internal conflicts, lose access to 30% of their grain imports routed through Djibouti.\n\nIn South Asia, the heat wave compounds the crisis: India's wheat harvest in Uttar Pradesh and Punjab suffers 15% yield losses from temperatures exceeding 45°C during critical grain-filling stages. Cold chain infrastructure breaks down as power grids buckle under cooling demand, spoiling stored produce. Global wheat prices spike 30-40%, with futures markets pricing in sustained disruption. The World Food Programme's pre-positioned stocks in Djibouti and Aden can sustain operations for approximately 3 weeks before requiring emergency resupply via alternative routes."
+    },
+    "infrastructure": {
+      "affected_countries": [
+        {
+          "iso3": "IND",
+          "infrastructure_risk": 8,
+          "systems_at_risk": ["power", "water", "transport"],
+          "cascade_risk": 9
+        },
+        {
+          "iso3": "PAK",
+          "infrastructure_risk": 8,
+          "systems_at_risk": ["power", "water", "telecom"],
+          "cascade_risk": 8
+        },
+        {
+          "iso3": "EGY",
+          "infrastructure_risk": 5,
+          "systems_at_risk": ["transport", "digital"],
+          "cascade_risk": 4
+        }
+      ],
+      "outage_zones": [
+        {
+          "coordinates": [77.21, 28.61],
+          "radius_km": 100,
+          "type": "power",
+          "severity": 9,
+          "population_affected": 30000000
+        },
+        {
+          "coordinates": [67.01, 24.86],
+          "radius_km": 80,
+          "type": "power",
+          "severity": 8,
+          "population_affected": 16000000
+        },
+        {
+          "coordinates": [72.88, 19.08],
+          "radius_km": 60,
+          "type": "water",
+          "severity": 7,
+          "population_affected": 20000000
+        }
+      ],
+      "narrative": "The most dangerous cascade risk emerges in India's power grid: the heat wave pushes electricity demand to 240 GW — exceeding installed capacity — as 500 million people simultaneously run cooling systems. Delhi NCR experiences rolling blackouts affecting 30 million residents. The failure chain accelerates: power grid failure shuts down water treatment plants within 4 hours, telecom tower backup batteries exhaust within 6-8 hours, and hospitals switch to emergency generators with 48-hour fuel supplies.\n\nPakistan's grid, already operating at 60% capacity, collapses entirely in Karachi and southern Sindh. The K-Electric utility serving 16 million people cannot maintain supply as natural gas feedstock — normally imported as LNG via the Suez route — runs out within one week. Water pumping stations in Karachi shut down, creating an immediate public health emergency.\n\nMumbai faces a compounding water crisis: the city's aging pipeline infrastructure, dependent on electric pumping stations, cannot maintain pressure during power fluctuations. Contamination risk spikes as treatment chemicals require precise electrical dosing. Port operations at JNPT (India's largest container port) slow to 40% capacity, creating a secondary logistics bottleneck that delays emergency supply shipments."
+    },
+    "civilian_impact": {
+      "affected_countries": [
+        {
+          "iso3": "IND",
+          "humanitarian_score": 9,
+          "displaced_estimate": 2000000,
+          "health_risk": 9,
+          "vulnerable_groups": ["outdoor laborers", "elderly without AC", "children under 5", "urban slum residents"]
+        },
+        {
+          "iso3": "PAK",
+          "humanitarian_score": 8,
+          "displaced_estimate": 800000,
+          "health_risk": 8,
+          "vulnerable_groups": ["women", "refugees from Afghanistan", "daily wage workers"]
+        },
+        {
+          "iso3": "BGD",
+          "humanitarian_score": 7,
+          "displaced_estimate": 500000,
+          "health_risk": 7,
+          "vulnerable_groups": ["Rohingya refugees", "garment workers", "coastal communities"]
+        },
+        {
+          "iso3": "YEM",
+          "humanitarian_score": 9,
+          "displaced_estimate": 1200000,
+          "health_risk": 9,
+          "vulnerable_groups": ["internally displaced", "children", "pregnant women"]
+        }
+      ],
+      "displacement_flows": [
+        {
+          "from": [77.21, 28.61],
+          "to": [77.41, 28.95],
+          "estimated_people": 500000,
+          "urgency": "high"
+        },
+        {
+          "from": [85.32, 25.61],
+          "to": [77.21, 28.61],
+          "estimated_people": 800000,
+          "urgency": "medium"
+        },
+        {
+          "from": [67.01, 24.86],
+          "to": [67.08, 25.40],
+          "estimated_people": 400000,
+          "urgency": "high"
+        },
+        {
+          "from": [92.01, 21.43],
+          "to": [90.41, 23.81],
+          "estimated_people": 200000,
+          "urgency": "medium"
+        }
+      ],
+      "narrative": "The combined crisis places 50 million people at immediate risk across South Asia. India's outdoor labor force — 400 million workers in construction, agriculture, and street vending — faces lethal heat exposure as wet-bulb temperatures exceed 35°C in the Indo-Gangetic Plain. The Indian Meteorological Department projects 2,000-5,000 heat-related deaths in the first week alone, predominantly among elderly residents without air conditioning and children under 5.\n\nIn Pakistan, the 3 million Afghan refugees in Khyber Pakhtunkhwa and Balochistan face compounded vulnerability: already lacking permanent shelter, they have no access to cooling infrastructure. Gender-based violence risk spikes in informal displacement camps as families flee urban areas during blackouts.\n\nBangladesh's 1 million Rohingya refugees in Cox's Bazar camps face heat stress in overcrowded shelters designed for monsoon conditions, not extreme heat. Camp water systems, dependent on electric pumping, fail during power disruptions. The most critical gap in humanitarian response capacity is medical: India has 0.5 hospital beds per 1,000 people — half the global average — and heat stroke patients require intensive care resources that are already at capacity during normal operations."
+    }
+  },
+  "synthesis": {
+    "cascading_risk_chain": "Suez Canal blockage → oil/LNG price spike → South Asian power grid overload during heat wave → water treatment plant shutdowns → mass displacement and public health emergency",
+    "most_affected_population": "50 million outdoor laborers and urban slum residents across India's Indo-Gangetic Plain facing lethal wet-bulb temperatures without power or water infrastructure",
+    "second_order_effect": "The maritime insurance market faces $50B+ in reinsurance exposure from the Suez blockage, triggering global shipping premium increases that persist for years and permanently raise the cost of Indian Ocean trade routes",
+    "compound_risk_score": 89,
+    "narrative": "The cascading risk chain begins with the Suez Canal blockage disrupting 12% of global trade, which triggers oil and LNG price spikes of 18-25%. These energy cost increases overload South Asian power grids already strained by the extreme heat wave, causing widespread blackouts across Delhi (30M affected), Karachi (16M), and Mumbai (20M). Power failures cascade into water treatment plant shutdowns within 4 hours, creating a public health emergency.\n\nThe single most affected population is the 50 million outdoor laborers and urban slum residents across India's Indo-Gangetic Plain, who face lethal wet-bulb temperatures exceeding 35°C without access to cooling, power, or clean water.\n\nA critical second-order effect emerges from the intersection of economic and infrastructure damage: Lloyd's of London faces reinsurance exposure exceeding $50 billion from simultaneous maritime and infrastructure claims, potentially triggering a repricing of all global shipping insurance that raises trade costs permanently.\n\nThe compound risk score of 89 reflects four domains scoring 7+ (geopolitics: 8, economy: 9, food: 9, civilian: 9) with a cascade multiplier of 1.3, indicating a severe multi-domain crisis with reinforcing feedback loops across energy, food, and humanitarian systems."
+  }
 }

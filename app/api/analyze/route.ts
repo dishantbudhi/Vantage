@@ -7,6 +7,7 @@ import { runInfrastructureAgent } from "@/lib/agents/infrastructure-agent";
 import { runCivilianImpactAgent } from "@/lib/agents/civilian-impact-agent";
 import { runSynthesisAgent, type AgentOutputs } from "@/lib/agents/synthesis-agent";
 import { searchGDELT } from "@/lib/gdelt";
+import { matchFallbackScenario, loadFallbackData, replayFallback } from "@/lib/fallback-replay";
 import type { AgentName } from "@/lib/types";
 import type { OrchestratorOutput } from "@/lib/agents/schemas";
 import type { GeopoliticsOutput, EconomyOutput, FoodSupplyOutput, InfrastructureOutput, CivilianImpactOutput } from "@/lib/agents/schemas";
@@ -181,7 +182,21 @@ export async function POST(req: NextRequest) {
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : "Unknown error";
         console.error("Pipeline error:", error);
-        sendError(errorMessage);
+
+        // Attempt fallback replay for golden-path scenarios
+        const fallbackName = matchFallbackScenario(scenario);
+        if (fallbackName) {
+          try {
+            console.log(`Pipeline failed, replaying fallback: ${fallbackName}`);
+            const fallbackData = await loadFallbackData(fallbackName);
+            await replayFallback(fallbackData, send);
+          } catch (fallbackError) {
+            console.error("Fallback replay also failed:", fallbackError);
+            sendError(errorMessage);
+          }
+        } else {
+          sendError(errorMessage);
+        }
       } finally {
         controller.close();
       }

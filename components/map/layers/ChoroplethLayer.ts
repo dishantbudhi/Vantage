@@ -1,5 +1,5 @@
 import { GeoJsonLayer } from "@deck.gl/layers";
-import { LightingEffect, AmbientLight, DirectionalLight } from "@deck.gl/core";
+import { AmbientLight, DirectionalLight, LightingEffect } from "@deck.gl/core";
 import type { AgentResults } from "@/lib/types";
 import type { GeopoliticsOutput, EconomyOutput, FoodSupplyOutput, InfrastructureOutput, CivilianImpactOutput } from "@/lib/agents/schemas";
 
@@ -35,53 +35,54 @@ function getImpactColor(impact: number): number[] {
   return [...color, 180];
 }
 
-function getMaxImpact(
-  iso3: string,
-  agentResults: AgentResults
-): number {
-  let maxImpact = 0;
+/**
+ * Build an O(1) lookup map of ISO3 → max impact score across all agents.
+ * Replaces repeated .find() calls per country per agent.
+ */
+export function buildImpactMap(agentResults: AgentResults): Map<string, number> {
+  const impactMap = new Map<string, number>();
+
+  const updateMax = (iso3: string, score: number) => {
+    const current = impactMap.get(iso3) ?? 0;
+    if (score > current) impactMap.set(iso3, score);
+  };
 
   const geo = agentResults.geopolitics as GeopoliticsOutput | undefined;
   if (geo?.affected_countries) {
-    const country = geo.affected_countries.find((c) => c.iso3 === iso3);
-    if (country) {
-      maxImpact = Math.max(maxImpact, country.impact_score);
+    for (const c of geo.affected_countries) {
+      updateMax(c.iso3, c.impact_score);
     }
   }
 
   const econ = agentResults.economy as EconomyOutput | undefined;
   if (econ?.affected_countries) {
-    const country = econ.affected_countries.find((c) => c.iso3 === iso3);
-    if (country) {
-      maxImpact = Math.max(maxImpact, country.trade_disruption);
+    for (const c of econ.affected_countries) {
+      updateMax(c.iso3, c.trade_disruption);
     }
   }
 
   const food = agentResults.food_supply as FoodSupplyOutput | undefined;
   if (food?.affected_countries) {
-    const country = food.affected_countries.find((c) => c.iso3 === iso3);
-    if (country) {
-      maxImpact = Math.max(maxImpact, country.food_security_impact);
+    for (const c of food.affected_countries) {
+      updateMax(c.iso3, c.food_security_impact);
     }
   }
 
   const infra = agentResults.infrastructure as InfrastructureOutput | undefined;
   if (infra?.affected_countries) {
-    const country = infra.affected_countries.find((c) => c.iso3 === iso3);
-    if (country) {
-      maxImpact = Math.max(maxImpact, country.infrastructure_risk);
+    for (const c of infra.affected_countries) {
+      updateMax(c.iso3, c.infrastructure_risk);
     }
   }
 
   const civ = agentResults.civilian_impact as CivilianImpactOutput | undefined;
   if (civ?.affected_countries) {
-    const country = civ.affected_countries.find((c) => c.iso3 === iso3);
-    if (country) {
-      maxImpact = Math.max(maxImpact, country.humanitarian_score);
+    for (const c of civ.affected_countries) {
+      updateMax(c.iso3, c.humanitarian_score);
     }
   }
 
-  return maxImpact;
+  return impactMap;
 }
 
 export function createChoroplethLayer(
@@ -89,9 +90,12 @@ export function createChoroplethLayer(
   agentResults: AgentResults,
   selectedCountry: string | null
 ) {
+  // Build O(1) lookup once instead of per-country .find() calls
+  const impactMap = buildImpactMap(agentResults);
+
   const dataWithImpact = countriesGeoJSON.features.map((feature) => {
     const iso3 = feature.properties?.ISO_A3;
-    const maxImpact = iso3 ? getMaxImpact(iso3, agentResults) : 0;
+    const maxImpact = iso3 ? (impactMap.get(iso3) ?? 0) : 0;
     return {
       ...feature,
       properties: {
