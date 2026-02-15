@@ -2,6 +2,14 @@
 
 Multi-Agent Catastrophic Risk Simulation Platform
 
+## Details
+
+- Addresses the difficulty of predicting second-and-third-order effects of global catastrophes
+- OpenAI (GPT-5.2) for analysis, MiniMax (M2.5) for agents in swarm
+- Next.js Web Application with a custom AI agent orchestration backend and a WebGL-powered geospatial frontend
+- Next Improvement: More Agents (Pandemic, Cybersecurity, Nuclear Threat domains)
+
+
 ## Prerequisites
 
 - Node.js 20+
@@ -78,3 +86,5 @@ npm run build
 │   └── types.ts           # Shared TypeScript types
 └── public/                 # Static assets
 ```
+
+## Screenshots/Demo
