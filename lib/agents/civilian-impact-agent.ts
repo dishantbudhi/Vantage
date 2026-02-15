@@ -1,2 +1,61 @@
-// TODO: streamText() + generateObject() for civilian impact analysis
+import { generateObject, streamText } from "ai";
+import { minimax } from "./providers";
+import { CivilianImpactSchema, type CivilianImpactOutput, OrchestratorOutput } from "./schemas";
+import { CIVILIAN_IMPACT_SYSTEM_PROMPT } from "./system-prompts";
+import type { AgentOptions } from "./geopolitics-agent";
 
+export async function runCivilianImpactAgent(
+  orchestratorOutput: OrchestratorOutput,
+  gdeltContext: string,
+  options: AgentOptions = {}
+): Promise<{ narrative: string; structured: CivilianImpactOutput }> {
+  const { onChunk, temperature = 0.4, maxTokens = 2000 } = options;
+
+  const prompt = buildPrompt(orchestratorOutput, gdeltContext);
+
+  const textStream = streamText({
+    model: minimax("MiniMax-M2.5"),
+    system: CIVILIAN_IMPACT_SYSTEM_PROMPT,
+    prompt,
+    temperature,
+    maxTokens,
+    onChunk: ({ chunk }) => {
+      if (chunk.type === "text-delta" && onChunk) {
+        onChunk(chunk.textDelta);
+      }
+    },
+  });
+
+  const narrative = await textStream.text;
+
+  const { object: structured } = await generateObject({
+    model: minimax("MiniMax-M2.5"),
+    schema: CivilianImpactSchema,
+    system: CIVILIAN_IMPACT_SYSTEM_PROMPT,
+    prompt,
+    temperature: 0.3,
+  });
+
+  return { narrative, structured };
+}
+
+function buildPrompt(orchestratorOutput: OrchestratorOutput, gdeltContext: string): string {
+  const contextSection = gdeltContext
+    ? `RECENT NEWS CONTEXT:\n${gdeltContext}\n\n`
+    : "";
+
+  return `${contextSection}SCENARIO ANALYSIS REQUEST:
+
+Scenario Summary: ${orchestratorOutput.scenario_summary}
+
+Primary Affected Regions: ${orchestratorOutput.primary_regions.join(", ")}
+Secondary Affected Regions: ${orchestratorOutput.secondary_regions.join(", ")}
+
+Coordinates: lat ${orchestratorOutput.coordinates.lat}, lon ${orchestratorOutput.coordinates.lon}
+Zoom Level: ${orchestratorOutput.zoom_level}
+Time Horizon: ${orchestratorOutput.time_horizon}
+Severity: ${orchestratorOutput.severity}/10
+Event Categories: ${orchestratorOutput.event_categories.join(", ")}
+
+Please provide your analysis in JSON format matching the schema.`;
+}

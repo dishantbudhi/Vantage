@@ -15,7 +15,8 @@ export type AgentName =
     | "economy"
     | "food_supply"
     | "infrastructure"
-    | "civilian_impact";
+    | "civilian_impact"
+    | "synthesis";
 
 // ── SSE Event Discriminated Unions ─────────────────────────────────
 
@@ -31,7 +32,7 @@ export type SSEAgentChunkEvent = {
 
 export type SSEAgentCompleteEvent = {
     type: "agent_complete";
-    data: { agent: AgentName; structured: AgentOutput };
+    data: { agent: AgentName; structured: AgentOutput | SynthesisOutput; narrative?: string };
 };
 
 export type SSESynthesisChunkEvent = {
@@ -49,13 +50,19 @@ export type SSEErrorEvent = {
     data: { message: string; agent?: AgentName };
 };
 
+export type SSEStatusEvent = {
+    type: "status";
+    data: { status: "orchestrating" | "analyzing" | "synthesizing"; message: string };
+};
+
 export type SSEEvent =
     | SSEOrchestratorEvent
     | SSEAgentChunkEvent
     | SSEAgentCompleteEvent
     | SSESynthesisChunkEvent
     | SSECompleteEvent
-    | SSEErrorEvent;
+    | SSEErrorEvent
+    | SSEStatusEvent;
 
 // ── Agent Output Union ─────────────────────────────────────────────
 
@@ -141,4 +148,12 @@ export interface ViewState {
     pitch: number;
     bearing: number;
     transitionDuration?: number;
+    padding?: {
+        top: number;
+        bottom: number;
+        left: number;
+        right: number;
+    };
+    width?: number;
+    height?: number;
 }
